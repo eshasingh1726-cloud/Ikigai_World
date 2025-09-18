@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Travel in India - ikigai world</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+    }
+     /* Set up for sticky footer - main changes here */
+     html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: #bedbd3;
+      min-height: 100vh;
+      padding-bottom: 40px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Background gradient instead of video */
+    .gradient-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0d3021, #4D6255, #68B777);
+      z-index: -2;
+    }
+    
+    .gradient-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 48, 33, 0.7);
+      z-index: -1;
+    }
+    
+    /* Normal navigation bar */
+    .navbar {
+      background-color: rgba(13, 48, 33, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+      padding: 15px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Updated navigation layout for better space utilization */
+    .navbar .container {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px; /* Wider container for more space */
+      width: 100%;
+    }
+    
+    /* Logo and tagline */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      flex-shrink: 1;
+      margin-right: 10px; /* Reduced right margin */
+      min-width: 180px; /* Ensure minimum width for logo visibility */
+    }
+    
+    /* Logo styling with smaller size */
+    .logo-image {
+      width: 150px; /* Slightly smaller logo */
+      height: auto;
+      position: relative;
+      overflow: visible;
+      background: none;
+      box-shadow: none;
+      border: none;
+    }
+    
+    .logo-image img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease;
+      border: none;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+      object-fit: contain;
+    }
+    
+    .logo-image:hover img {
+      transform: scale(1.1);
+    }
+    
+    /* Tagline with updated font to match logo */
+    .tagline {
+      color: rgba(190, 219, 211, 0.9);
+      font-size: 16px; /* Slightly smaller font */
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: 0.8px;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+      white-space: normal; /* Allow breaking on very small screens */
+      display: none; /* Hide on smaller screens */
+    }
+    
+    /* Navigation links - updated with box styling */
+    .nav-links {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px; /* Reduced from 6px */
+      margin-right: 5px;
+    }
+    
+    .nav-links a {
+      color: rgba(190, 219, 211, 0.8);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 8px; /* Reduced horizontal padding */
+      transition: all 0.3s;
+      border-radius: 6px;
+      white-space: nowrap;
+      border: 1px solid rgba(104, 183, 119, 0.3); /* Add border to create box effect */
+      background-color: rgba(13, 48, 33, 0.4); /* Slightly darker background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px; /* Fixed height for uniform appearance */
+      font-size: 14px; /* Slightly smaller font */
+    }
+    
+    .nav-links a:hover, 
+    .nav-links a.active {
+      color: #bedbd3;
+      background-color: rgba(104, 183, 119, 0.3);
+      border-color: rgba(104, 183, 119, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Expanded search bar */
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px; /* Increased from 500px to 650px */
+      margin: 0 10px;
+      flex-grow: 1; /* Allow search to use available space */
+    }
+    
+    .search-container input {
+      width: 100%;
+      padding: 8px 16px;
+      padding-right: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(77, 98, 85, 0.5);
+      background: rgba(190, 219, 211, 0.1);
+      color: #bedbd3;
+      outline: none;
+      transition: all 0.3s;
+      height: 40px; /* Match height with nav links */
+    }
+    
+    .search-container input::placeholder {
+      color: rgba(190, 219, 211, 0.6);
+    }
+    
+    .search-container input:focus {
+      background: rgba(190, 219, 211, 0.2);
+      box-shadow: 0 0 10px rgba(104, 183, 119, 0.3);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(190, 219, 211, 0.7);
+      cursor: pointer;
+    }
+    
+    /* Search results dropdown */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(13, 48, 33, 0.95);
+      border-radius: 8px;
+      margin-top: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+    
+    .search-results.active {
+      display: block;
+    }
+    
+    /* Action buttons - improved alignment and added sign up button */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px; /* Reduced gap */
+    }
+    
+    .nav-actions button {
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 8px 12px; /* Reduced padding */
+      border-radius: 6px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 40px; /* Match height with other elements */
+      font-size: 14px; /* Slightly smaller font */
+    }
+    
+    .nav-actions button:first-child {
+      background: transparent;
+      color: #bedbd3;
+      border: 1px solid rgba(190, 219, 211, 0.3);
+    }
+    
+    .nav-actions button:first-child:hover {
+      border-color: rgba(190, 219, 211, 0.5);
+      background: rgba(77, 98, 85, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .nav-actions button:last-child {
+      background: rgba(104, 183, 119, 0.3);
+      color: #bedbd3;
+      border: 1px solid rgba(104, 183, 119, 0.5);
+    }
+    
+    .nav-actions button:last-child:hover {
+      background: rgba(104, 183, 119, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    /* Show tagline on larger screens */
+    @media (min-width: 1200px) {
+      .tagline {
+        display: block;
+      }
+      
+      .logo-image {
+        width: 180px; /* Restore original logo size */
+      }
+      
+      .nav-links a, .nav-actions button {
+        font-size: 16px; /* Restore original font size */
+      }
+    }
+
+    /* Star animations */
+    .star {
+      position: fixed;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #ffffff;
+      animation: twinkle 5s infinite ease-in-out;
+      z-index: -1;
+    }
+    
+    .circle {
+      position: fixed;
+      background: #68B777;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 8s infinite ease-in-out alternate;
+      z-index: -1;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(10px, -10px); }
+      100% { transform: translate(-10px, 10px); }
+    }
+    
+    /* Footer */
+    footer {
+          background-color: rgba(13, 48, 33, 0.9);
+          color: #fff;
+          padding: 50px 0 20px;
+          border-top: 1px solid rgba(104, 183, 119, 0.3);
+          margin-top: 40px;
+        }
+        
+        .footer-links h5 {
+          color: #68B777;
+          margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+          color: #bedbd3;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+          color: #68B777;
+          padding-left: 5px;
+        }
+        
+        .custom-search {
+            position: relative;
+        }
+        
+        .custom-search input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding-right: 40px;
+        }
+        
+        .custom-search button {
+            position: absolute;
+            right: 5px;
+            top: 3px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .custom-search input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 80px 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            font-style: italic;
+            color: #fff;
+        }
+        
+        .hero-section p {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #fff; /* Add this line to make text white */
+}
+        
+        .filter-buttons {
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 10px 25px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .package-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            height: 100%;
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .package-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .package-content {
+            padding: 20px;
+        }
+        
+        .package-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .package-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+        
+        .package-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .feature-badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-badge i {
+            margin-right: 5px;
+        }
+        
+        .safety-tips {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 1;
+    color: #fff; /* Add this line to make text white */
+}
+        
+        .safety-tips h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+    /* New styles for pricing */
+    .package-pricing {
+    margin: 15px 0;
+    color: #fff;
+    text-align: left; /* Explicitly align text to the left */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+    
+.old-price {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.6);
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.new-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #68B777;
+}
+
+.discount {
+    background-color: rgba(104, 183, 119, 0.2);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    border: 1px solid rgba(104, 183, 119, 0.5);
+}
+    
+.package-pricing + .package-action {
+    margin-top: 15px;
+}
+    
+    .book-now-btn {
+        background-color: rgba(104, 183, 119, 0.7);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .book-now-btn:hover {
+        background-color: rgba(104, 183, 119, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function(){
+        emailjs.init("YOUR_EMAILJS_USER_ID");
+      })();
+    </script>
+</head>
+<body>
+     <!-- Gradient Background instead of video -->
+  <div class="gradient-background"></div>
+  <div class="gradient-overlay"></div>
+  
+  <!-- Star and circle decorations -->
+  <script>
+    function createStarsAndCircles() {
+      // Create stars
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size
+        const size = Math.random() * 3 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        
+        // Random animation delay
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        
+        document.body.appendChild(star);
+      }
+      
+      // Create circles
+      const colors = ['#68B777', '#8aac80', '#4D6255'];
+      for (let i = 0; i < 20; i++) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        
+        // Random size
+        const size = Math.random() * 30 + 10;
+        circle.style.width = `${size}px`;
+        circle.style.height = `${size}px`;
+        
+        // Random position
+        circle.style.top = `${Math.random() * 100}%`;
+        circle.style.left = `${Math.random() * 100}%`;
+        
+        // Random color
+        circle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random animation delay
+        circle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        document.body.appendChild(circle);
+      }
+    }
+    window.onload = createStarsAndCircles;
+  </script>
+  
+  <!-- Updated Navigation Bar with Search Functionality -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <!-- Logo and Tagline - Reduced width and margins -->
+      <div class="logo-container">
+        <div class="logo-image">
+          <a href="home2.html"><img src="New.png" alt="Ikigai World Logo"></a>
+        </div>
+        <div class="tagline-container">
+          <p class="tagline">Unveil the Wonders of India with Ikigai World</p>
+        </div>
+      </div>
+      
+      <!-- Toggle Button for Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <i class="fas fa-bars text-light"></i>
+      </button>
+      
+      <!-- Nav Links and Actions -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <div class="nav-links ms-auto">
+          <a href="Destination.html">Destinations</a>
+          <a href="TravelGuide.html">Travel Guides</a>
+          <a href="about-us-page.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        
+        <!-- Updated Search Bar with Wider Width -->
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Search destinations...">
+          <span class="search-icon" id="searchButton"><i class="fas fa-search"></i></span>
+          <!-- Search Results Container -->
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <!-- Action Buttons -->
+        <div class="nav-actions">
+          <button>Log In</button>
+          <button>Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+    
+    <!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1>Solo Travel Adventures in India</h1>
+        <p>Embark on a journey of self-discovery across India's diverse landscapes, vibrant cultures, and spiritual retreats. Experience the freedom of solo travel with our curated packages designed with safety, comfort, and authentic experiences in mind.</p>
+        
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active">All Packages</button>
+            <button class="filter-btn">Budget Friendly</button>
+            <button class="filter-btn">Adventure</button>
+            <button class="filter-btn"><i class="fas fa-shield-alt"></i> Safe for Women</button>
+            <button class="filter-btn"><i class="fas fa-wifi"></i> Digital Nomad</button>
+        </div>
+        
+        <!-- Packages -->
+        <div class="row">
+            <!-- Package 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('rishikesh\ solo.jpeg');"></div>
+                    <div class="package-content">
+                        <h3 class="package-title">Spiritual Rishikesh Retreat</h3>
+                        <p class="package-description">Find your inner peace with a 7-day solo retreat in Rishikesh, the yoga capital of the world. Join daily yoga and meditation sessions by the Ganges, explore hiking trails, and connect with like-minded travelers at communal dinners.</p>
+                        
+                        <div class="package-features">
+                            <span class="feature-badge"><i class="fas fa-om"></i> Yoga Classes</span>
+                            <span class="feature-badge"><i class="fas fa-utensils"></i> Meals Included</span>
+                            <span class="feature-badge"><i class="fas fa-users"></i> Group Activities</span>
+                            <span class="feature-badge"><i class="fas fa-wifi"></i> Wi-Fi Zones</span>
+                        </div>
+                        <div class="package-pricing">
+                          <span class="old-price">₹32,999</span>
+                          <span class="new-price">₹27,999</span>
+                          <span class="discount">15% OFF</span>
+                      </div>
+                      <div class="package-action">
+                          <button class="book-now-btn" onclick="initiatePayment('Spiritual Rishikesh Retreat', 27999)"><i class="fas fa-calendar-check"></i> Book Now</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Package 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('goa\ solo.jpeg');"></div>
+                    <div class="package-content">
+                        <h3 class="package-title">Goa Solo Beach Escape</h3>
+                        <p class="package-description">Experience the perfect balance of solitude and social connection in Goa. Stay at solo-friendly hostels, join beach yoga sessions, explore hidden beaches on rented scooters, and enjoy the vibrant nightlife with newfound friends.</p>
+                        
+                        <div class="package-features">
+                            <span class="feature-badge"><i class="fas fa-umbrella-beach"></i> Beach Access</span>
+                            <span class="feature-badge"><i class="fas fa-shield-alt"></i> 24/7 Support</span>
+                            <span class="feature-badge"><i class="fas fa-cocktail"></i> Welcome Drink</span>
+                            <span class="feature-badge"><i class="fas fa-motorcycle"></i> Scooter Rental</span>
+                        </div>
+                        <div class="package-pricing">
+                          <span class="old-price">₹25,499</span>
+                          <span class="new-price">₹19,999</span>
+                          <span class="discount">22% OFF</span>
+                      </div>
+                        <div class="package-action">
+                          <button class="book-now-btn" onclick="initiatePayment('Goa Solo Beach Escape', 19999)"><i class="fas fa-calendar-check"></i> Book Now</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Package 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('kerala\ solo.jpeg');"></div>
+                    <div class="package-content">
+                        <h3 class="package-title">Kerala Solo Backwaters Tour</h3>
+                        <p class="package-description">Navigate Kerala's serene backwaters with a personal guide. Enjoy private houseboat stays, authentic local cuisine, village tours, and Ayurvedic wellness treatments. Perfect for the introspective traveler seeking tranquility.</p>
+                        
+                        <div class="package-features">
+                            <span class="feature-badge"><i class="fas fa-ship"></i> Private Houseboat</span>
+                            <span class="feature-badge"><i class="fas fa-spa"></i> Ayurvedic Spa</span>
+                            <span class="feature-badge"><i class="fas fa-utensils"></i> All Meals</span>
+                            <span class="feature-badge"><i class="fas fa-user-shield"></i> Personal Guide</span>
+                        </div>
+                        <div class="package-pricing">
+                          <span class="old-price">₹39,999</span>
+                          <span class="new-price">₹33,499</span>
+                          <span class="discount">16% OFF</span>
+                      </div>
+                        <div class="package-action">
+                          <button class="book-now-btn" onclick="initiatePayment('Kerala Solo Backwaters Tour', 33999)"><i class="fas fa-calendar-check"></i> Book Now</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Package 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('himachal\ solo.jpeg');"></div>
+                    <div class="package-content">
+                        <h3 class="package-title">Himachal Backpacking Adventure</h3>
+                        <p class="package-description">Trek through the breathtaking mountains of Himachal Pradesh with our guided small group tours. Stay in hostels and homestays, meet fellow solo travelers, and experience local Himalayan culture in Manali, Kasol, and Tosh.</p>
+                        
+                        <div class="package-features">
+                            <span class="feature-badge"><i class="fas fa-hiking"></i> Guided Treks</span>
+                            <span class="feature-badge"><i class="fas fa-home"></i> Homestays</span>
+                            <span class="feature-badge"><i class="fas fa-mountain"></i> Mountain Views</span>
+                            <span class="feature-badge"><i class="fas fa-campground"></i> Camping</span>
+                        </div>
+                        <div class="package-pricing">
+                          <span class="old-price">₹28,499</span>
+                          <span class="new-price">₹22,999</span>
+                          <span class="discount">19% OFF</span>
+                      </div>
+                        <div class="package-action">
+                          <button class="book-now-btn" onclick="initiatePayment('Himachal Backpacking Adventure', 22999)"><i class="fas fa-calendar-check"></i> Book Now</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Package 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('rajasthan\ solo.jpeg');"></div>
+                    <div class="package-content">
+                        <h3 class="package-title">Rajasthan Heritage Solo Tour</h3>
+                        <p class="package-description">Explore the royal heritage of Rajasthan with a personal driver. Visit majestic forts in Jaipur, Jodhpur, and Udaipur, stay in heritage hotels, and enjoy curated experiences like cooking classes and artisan workshops.</p>
+                        
+                        <div class="package-features">
+                            <span class="feature-badge"><i class="fas fa-car"></i> Private Transport</span>
+                            <span class="feature-badge"><i class="fas fa-concierge-bell"></i> Luxury Stays</span>
+                            <span class="feature-badge"><i class="fas fa-camera"></i> Photography Spots</span>
+                            <span class="feature-badge"><i class="fas fa-utensils"></i> Cooking Class</span>
+                        </div>
+                        <div class="package-pricing">
+                          <span class="old-price">₹42,999</span>
+                          <span class="new-price">₹36,499</span>
+                          <span class="discount">15% OFF</span>
+                      </div>
+                        <div class="package-action">
+                          <button class="book-now-btn" onclick="initiatePayment('Rajasthan Heritage Solo Tour', 42999)"><i class="fas fa-calendar-check"></i> Book Now</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Package 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('varnasi\ solo.jpeg');"></div>
+                    <div class="package-content">
+                        <h3 class="package-title">Varanasi Spiritual Journey</h3>
+                        <p class="package-description">Experience the mystical city of Varanasi on this solo-friendly tour. Witness the Ganga Aarti, explore ancient temples, take boat rides at sunrise, and engage in philosophical discussions with local scholars and fellow travelers.</p>
+                        
+                        <div class="package-features">
+                            <span class="feature-badge"><i class="fas fa-pray"></i> Spiritual Rituals</span>
+                            <span class="feature-badge"><i class="fas fa-ship"></i> Boat Rides</span>
+                            <span class="feature-badge"><i class="fas fa-book"></i> Cultural Talks</span>
+                            <span class="feature-badge"><i class="fas fa-shield-alt"></i> Safe Accommodation</span>
+                        </div>
+                        <div class="package-pricing">
+                          <span class="old-price">₹18,999</span>
+                          <span class="new-price">₹22,499</span>
+                          <span class="discount">17% OFF</span>
+                      </div>
+                        <div class="package-action">
+                          <button class="book-now-btn" onclick="initiatePayment('Varanasi Spiritual Journey', 18999)"><i class="fas fa-calendar-check"></i> Book Now</button>
+                      </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  
+  <!-- Safety Tips Section -->
+  <section class="safety-tips">
+    <div class="container">
+        <h2>Solo Travel Safety in India</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h4><i class="fas fa-shield-alt"></i> Essential Safety Tips</h4>
+                <ul>
+                    <li>Research your destinations thoroughly before traveling</li>
+                    <li>Share your itinerary with family or friends</li>
+                    <li>Keep digital and physical copies of important documents</li>
+                    <li>Dress modestly, especially in religious sites and rural areas</li>
+                    <li>Use reliable transportation services, preferably pre-booked</li>
+                    <li>Stay in well-reviewed accommodations with good security</li>
+                    <li>Purchase comprehensive travel insurance</li>
+                    <li>Register with your country's embassy in India</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4><i class="fas fa-mobile-alt"></i> Useful Apps for Solo Travelers</h4>
+                <ul>
+                    <li><strong>Ola/Uber</strong> - Safe and reliable transportation</li>
+                    <li><strong>Maps.me</strong> - Offline maps for navigation</li>
+                    <li><strong>Hostelworld/Zostel</strong> - For solo traveler-friendly accommodation</li>
+                    <li><strong>Google Translate</strong> - For language barriers</li>
+                    <li><strong>Emergency contact apps</strong> - Local emergency numbers</li>
+                    <li><strong>TraveLibro</strong> - Connect with other solo travelers</li>
+                    <li><strong>Touristlink</strong> - Meet travel companions along the way</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h4><i class="fas fa-female"></i> For Women Solo Travelers</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li>Consider booking women-only accommodations where available</li>
+                        <li>Use women's compartments in trains when traveling by rail</li>
+                        <li>Be assertive and confident in your interactions</li>
+                        <li>Trust your intuition and remove yourself from uncomfortable situations</li>
+                        <li>Consider joining group tours for certain destinations</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <strong>Recommended Destinations for Women Solo Travelers:</strong><br>
+                        Rishikesh, Pondicherry, Mysore, Goa (North), Udaipur, Hampi, 
+                        McLeod Ganj, Auroville, and Kerala backwaters offer relatively safer 
+                        environments with established tourist infrastructure.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 mb-4">
+                <h5 class="mb-3">About Explore India Together</h5>
+                <p>We are a premier group tour operator specializing in authentic Indian travel experiences. Our mission is to connect travelers with the rich culture, stunning landscapes, and hidden gems of India.</p>
+                <div class="mt-3">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="#home">Home</a></li>
+                    <li class="mb-2"><a href="#packages">Packages</a></li>
+                    <li class="mb-2"><a href="#about">Why Choose Us</a></li>
+                    <li class="mb-2"><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <h5>Popular Tours</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="#">Kashmir Tour</a></li>
+                    <li class="mb-2"><a href="#">Kerala Backwaters</a></li>
+                    <li class="mb-2"><a href="#">Ladakh Adventure</a></li>
+                    <li class="mb-2"><a href="#">Golden Triangle</a></li>
+                    <li class="mb-2"><a href="#">Himachal Exploration</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-lg-4 mb-4">
+                <h5>Newsletter</h5>
+                <p>Subscribe to our newsletter for exclusive deals and travel tips.</p>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Your email address">
+                    <button class="btn btn-primary" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <hr class="mt-4 mb-3" style="border-color: rgba(104, 183, 119, 0.3);">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2025 Explore India Together. All rights reserved.</p>
+        </div>
+    </div>
+  </footer>
+  <!-- JavaScript for Search and Filtering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+   <!-- Scripts -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+   <script>
+       // Package filtering
+       document.addEventListener('DOMContentLoaded', function() {
+           const filterBtns = document.querySelectorAll('.filter-btn');
+           const packageItems = document.querySelectorAll('.package-item');
+           
+           filterBtns.forEach(btn => {
+               btn.addEventListener('click', function() {
+                   // Remove active class from all buttons
+                   filterBtns.forEach(btn => btn.classList.remove('active'));
+                   // Add active class to clicked button
+                   this.classList.add('active');
+                   
+                   const filterValue = this.getAttribute('data-filter');
+                   
+                   packageItems.forEach(item => {
+                       if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
+                           item.style.display = 'block';
+                       } else {
+                           item.style.display = 'none';
+                       }
+                   });
+               });
+           });
+           
+           // Smooth scrolling for anchor links
+           document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+               anchor.addEventListener('click', function(e) {
+                   e.preventDefault();
+                   document.querySelector(this.getAttribute('href')).scrollIntoView({
+                       behavior: 'smooth'
+                   });
+               });
+           });
+           
+           // Animation for elements when they come into view
+           const animateElements = document.querySelectorAll('.package-card, .col-md-4');
+           const observer = new IntersectionObserver((entries) => {
+               entries.forEach(entry => {
+                   if (entry.isIntersecting) {
+                       entry.target.classList.add('animate-fade');
+                       observer.unobserve(entry.target);
+                   }
+               });
+           }, { threshold: 0.2 });
+           
+           animateElements.forEach(el => {
+               observer.observe(el);
+           });
+       });
+   </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script>
+       document.addEventListener('DOMContentLoaded', function() {
+      // Filter buttons functionality
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const packageCards = document.querySelectorAll('.package-card');
+      
+      // Define package categories (you can add these as data attributes in your HTML)
+      // For now, I'll manually map packages to categories
+      const packageCategories = {
+          "Spiritual Rishikesh Retreat": ["adventure", "budget-friendly", "safe-for-women"],
+          "Goa Solo Beach Escape": ["budget-friendly", "digital-nomad"],
+          "Kerala Solo Backwaters Tour": ["safe-for-women", "luxury"],
+          "Himachal Backpacking Adventure": ["adventure", "budget-friendly"],
+          "Rajasthan Heritage Solo Tour": ["luxury", "safe-for-women"],
+          "Varanasi Spiritual Journey": ["adventure", "safe-for-women"]
+      };
+      
+      // Set up click event for filter buttons
+      filterButtons.forEach(button => {
+          button.addEventListener('click', function() {
+              // Remove active class from all buttons
+              filterButtons.forEach(btn => btn.classList.remove('active'));
+              
+              // Add active class to clicked button
+              this.classList.add('active');
+              
+              // Get filter category from button text
+              const filterCategory = this.innerText.trim().toLowerCase().replace(/\s+/g, '-');
+              
+              // Filter packages based on selected category
+              filterPackages(filterCategory);
+          });
+      });
+      
+      function filterPackages(category) {
+          packageCards.forEach(card => {
+              const packageTitle = card.querySelector('.package-title').textContent;
+              
+              // Show all packages if "All Packages" is selected
+              if (category === 'all-packages') {
+                  card.style.display = 'block';
+                  // Add a smooth fade-in effect
+                  setTimeout(() => {
+                      card.style.opacity = 1;
+                  }, 50);
+                  return;
+              }
+              
+              // Check if package belongs to selected category
+              const belongsToCategory = packageCategories[packageTitle] && 
+                                       packageCategories[packageTitle].includes(category);
+              
+              if (belongsToCategory) {
+                  // Show package with animation
+                  card.style.display = 'block';
+                  card.style.opacity = 0;
+                  setTimeout(() => {
+                      card.style.opacity = 1;
+                  }, 50);
+              } else {
+                  // Hide package with animation
+                  card.style.opacity = 0;
+                  setTimeout(() => {
+                      card.style.display = 'none';
+                  }, 300);
+              }
+          });
+      }
+      
+      // Add hover effects for package cards
+      packageCards.forEach(card => {
+          card.addEventListener('mouseenter', function() {
+              this.style.transform = 'translateY(-5px)';
+              this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+          });
+          
+          card.addEventListener('mouseleave', function() {
+              this.style.transform = 'translateY(0)';
+              this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+          });
+          
+          card.addEventListener('click', function() {
+              // Navigate to package detail page or show modal
+              console.log('Package clicked: ' + this.querySelector('.package-title').textContent);
+          });
+      });
+  });
+   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  // Mapping of keywords to their corresponding pages
+  const pageMapping = {
+    // Destination related keywords
+    "top": "Destination.html",
+    "best": "Destination.html",
+    "destinations": "Destination.html",
+    "places": "Destination.html",
+    "tourist": "Destination.html",
+    "famous": "Destination.html",
+    
+    // Activities and Trekking
+    "trek": "ActivitiesTrekkingExperience.html",
+    "trekking": "ActivitiesTrekkingExperience.html",
+    "hiking": "ActivitiesTrekkingExperience.html",
+    "adventure": "ActivitiesTrekkingExperience.html",
+    "outdoor": "ActivitiesTrekkingExperience.html",
+    "activities": "ActivitiesTrekkingExperience.html",
+    "sports": "ActivitiesTrekkingExperience.html",
+    
+    // Food and Cuisine
+    "food": "FoodsLocalCusine.html",
+    "cuisine": "FoodsLocalCusine.html",
+    "dishes": "FoodsLocalCusine.html",
+    "restaurant": "FoodsLocalCusine.html",
+    "eat": "FoodsLocalCusine.html",
+    "dining": "FoodsLocalCusine.html",
+    "culinary": "FoodsLocalCusine.html",
+    
+    // Festivals and Events
+    "festival": "FestivalEvents.html",
+    "events": "FestivalEvents.html",
+    "celebration": "FestivalEvents.html",
+    "cultural": "FestivalEvents.html",
+    "ceremony": "FestivalEvents.html",
+    "fair": "FestivalEvents.html",
+    
+    // Heritage and Historical Tourism
+    "heritage": "HeritageHistoricalTourim.html",
+    "historical": "HeritageHistoricalTourim.html",
+    "monument": "HeritageHistoricalTourim.html",
+    "fort": "HeritageHistoricalTourim.html",
+    "palace": "HeritageHistoricalTourim.html",
+    "history": "HeritageHistoricalTourim.html",
+    "ancient": "HeritageHistoricalTourim.html",
+    "architecture": "HeritageHistoricalTourim.html",
+    
+    // Markets and Shopping
+    "market": "LocalMarketSouvenirs.html",
+    "shop": "LocalMarketSouvenirs.html",
+    "shopping": "LocalMarketSouvenirs.html",
+    "souvenir": "LocalMarketSouvenirs.html",
+    "handicraft": "LocalMarketSouvenirs.html",
+    "bazaar": "LocalMarketSouvenirs.html",
+    "buy": "LocalMarketSouvenirs.html",
+    
+    // Photography
+    "photo": "Photospots.html",
+    "photography": "Photospots.html",
+    "spots": "Photospots.html",
+    "scenic": "Photospots.html",
+    "view": "Photospots.html",
+    "camera": "Photospots.html",
+    "instagram": "Photospots.html",
+    
+    // Religious and Spiritual Tourism
+    "religious": "ReligiousSpiritualTourism.html",
+    "spiritual": "ReligiousSpiritualTourism.html",
+    "temple": "ReligiousSpiritualTourism.html",
+    "mosque": "ReligiousSpiritualTourism.html",
+    "church": "ReligiousSpiritualTourism.html",
+    "pilgrimage": "ReligiousSpiritualTourism.html",
+    "holy": "ReligiousSpiritualTourism.html",
+    "sacred": "ReligiousSpiritualTourism.html",
+    
+    // Seasonal Travel
+    "season": "SeasonalTravel.html",
+    "seasonal": "SeasonalTravel.html",
+    "weather": "SeasonalTravel.html",
+    "monsoon": "SeasonalTravel.html",
+    "summer": "SeasonalTravel.html",
+    "winter": "SeasonalTravel.html",
+    "spring": "SeasonalTravel.html",
+    "autumn": "SeasonalTravel.html",
+    "fall": "SeasonalTravel.html",
+    "best time": "SeasonalTravel.html",
+    "when to visit": "SeasonalTravel.html",
+  };
+
+  // Sample destination data with page links
+  const destinations = [
+    { name: "Agra", description: "Home to the Taj Mahal", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Jaipur", description: "Pink City with royal palaces", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Goa", description: "Beautiful beaches and nightlife", type: "Beach", page: "Destination.html" },
+    { name: "Kerala", description: "God's own country with backwaters", type: "Nature", page: "Destination.html" },
+    { name: "Darjeeling", description: "Tea gardens and Himalayan views", type: "Hill Station", page: "Destination.html" },
+    { name: "Varanasi", description: "Spiritual city on the banks of Ganges", type: "Spiritual", page: "ReligiousSpiritualTourism.html" },
+    { name: "Udaipur", description: "City of lakes and palaces", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Rishikesh", description: "Yoga capital with adventure sports", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Andaman Islands", description: "Pristine beaches and coral reefs", type: "Beach", page: "Destination.html" },
+    { name: "Ladakh", description: "High altitude desert with stunning landscapes", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Munnar", description: "Tea plantations and misty hills", type: "Hill Station", page: "Destination.html" },
+    { name: "Hampi", description: "Ancient ruins and boulder landscapes", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Rajasthan", description: "Land of kings with desert and forts", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Manali", description: "Mountain paradise with adventure activities", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Amritsar", description: "Home to the Golden Temple", type: "Spiritual", page: "ReligiousSpiritualTourism.html" }
+  ];
+  
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+  const searchResults = document.getElementById('searchResults');
+  
+  // Function to determine which page a search term should navigate to
+  function getDestinationPage(query) {
+    // First check if query matches a specific destination
+    const destinationMatch = destinations.find(dest => 
+      dest.name.toLowerCase() === query.toLowerCase()
+    );
+    
+    if (destinationMatch) {
+      return destinationMatch.page;
+    }
+    
+    // Then check for keyword matches in our mapping
+    const words = query.toLowerCase().split(' ');
+    for (const word of words) {
+      if (word.length > 2 && pageMapping[word]) { // Ignore short words
+        return pageMapping[word];
+      }
+    }
+    
+    // Check for multi-word phrases
+    for (const key in pageMapping) {
+      if (query.toLowerCase().includes(key)) {
+        return pageMapping[key];
+      }
+    }
+    
+    // Default to top destinations if no specific match
+    return "TopDestinations.html";
+  }
+  
+  // Function to display search results
+  function displaySearchResults(results) {
+    searchResults.innerHTML = '';
+    
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="no-results">No destinations found</div>';
+      searchResults.classList.add('active');
+      return;
+    }
+    
+    results.forEach(result => {
+      const resultItem = document.createElement('div');
+      resultItem.className = 'search-result-item';
+      resultItem.innerHTML = `
+        <div><span class="highlight">${result.name}</span> - ${result.type}</div>
+        <div>${result.description}</div>
+      `;
+      
+      // Add click event to navigate to destination page
+      resultItem.addEventListener('click', function() {
+        window.location.href = result.page;
+        searchResults.classList.remove('active');
+        searchInput.value = '';
+      });
+      
+      searchResults.appendChild(resultItem);
+    });
+    
+    searchResults.classList.add('active');
+  }
+  
+  // Function to perform search
+  function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    
+    if (query === '') {
+      searchResults.classList.remove('active');
+      return;
+    }
+    
+    // Filter destinations based on search query
+    const results = destinations.filter(dest => 
+      dest.name.toLowerCase().includes(query) || 
+      dest.description.toLowerCase().includes(query) ||
+      dest.type.toLowerCase().includes(query)
+    );
+    
+    // If specific search matches are found, show them
+    if (results.length > 0) {
+      displaySearchResults(results);
+    } else {
+      // Otherwise, determine the best page for the query and navigate directly
+      const bestPage = getDestinationPage(query);
+      
+      // Create a generic result to show before redirecting
+      const genericResult = {
+        name: `Search results for "${query}"`,
+        description: "Click to view relevant information",
+        type: "Search",
+        page: bestPage
+      };
+      
+      displaySearchResults([genericResult]);
+    }
+  }
+  
+  // Event listeners for search
+  searchButton.addEventListener('click', function() {
+    const query = searchInput.value.trim();
+    if (query) {
+      const page = getDestinationPage(query);
+      window.location.href = page;
+    }
+  });
+  
+  searchInput.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      const query = searchInput.value.trim();
+      if (query) {
+        const page = getDestinationPage(query);
+        window.location.href = page;
+      }
+    } else if (event.key === 'Escape') {
+      searchResults.classList.remove('active');
+    } else {
+      // Auto-search as typing (real-time search)
+      performSearch();
+    }
+  });
+  
+  // Close search results when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target) && !searchButton.contains(event.target)) {
+      searchResults.classList.remove('active');
+    }
+  });
+});
+  </script>
+  </section>
+  <script>
+    function initiatePayment(packageName, amount) {
+      var options = {
+        "key": "rzp_test_1DP5mmOlF5G5ag",
+        "amount": amount * 100,
+        "currency": "INR",
+        "name": "Ikigai World",
+        "description": packageName,
+        "handler": function (response) {
+          sendConfirmationEmail(packageName, amount, response.razorpay_payment_id);
+          alert("Payment successful! Confirmation email sent.");
+        },
+        "prefill": {
+          "name": "Customer Name",
+          "email": "customer@example.com",
+          "contact": "9876543210"
+        },
+        "theme": {
+          "color": "#68B777"
+        }
+      };
+      var rzp = new Razorpay(options);
+      rzp.open();
+    }
+  
+    function sendConfirmationEmail(packageName, amount, paymentId) {
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        to_name: "Customer",
+        message: `Your booking for "${packageName}" has been confirmed. Total: ₹${amount}. Payment ID: ${paymentId}.`,
+        to_email: "customer@example.com"
+      });
+    }
+    </script>
+  </body>
+  </html>
