@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Travel Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #FF9933, #FFFFFF, #138808);
+            color: #000;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 30%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-right: 20px;
+            overflow-y: auto;
+        }
+        
+        .sidebar h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .state-selection {
+            margin-bottom: 20px;
+        }
+        
+        .state-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            background-color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .state-select:focus {
+            border-color: #FF9933;
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background-color: #138808;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-message {
+            background-color: #f5f5f5;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        .chat-input button {
+            background-color: #FF9933;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .chat-input button:hover {
+            background-color: #e67e22;
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            margin: 0 1px;
+            background-color: #bbb;
+            display: inline-block;
+            border-radius: 50%;
+            animation: typing 1s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #FF9933;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .popular-questions {
+            margin-top: 20px;
+        }
+        
+        .popular-questions h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .question-chip {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px 5px 5px 0;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .question-chip:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>India Travel Assistant</h1>
+        <p>Your virtual guide to exploring India's diverse states</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Select a State</h2>
+            <div class="state-selection">
+                <select id="state-dropdown" class="state-select">
+                    <option value="">All of India</option>
+                    <option value="andhra-pradesh">Andhra Pradesh</option>
+                    <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal-pradesh">Himachal Pradesh</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya-pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil-nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar-pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west-bengal">West Bengal</option>
+                </select>
+            </div>
+
+            <div class="popular-questions">
+                <h3>Popular Questions</h3>
+                <div class="question-chip">Best time to visit?</div>
+                <div class="question-chip">Top tourist attractions?</div>
+                <div class="question-chip">Local food specialties?</div>
+                <div class="question-chip">How to reach?</div>
+                <div class="question-chip">Accommodation options?</div>
+                <div class="question-chip">Cultural festivals?</div>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <span id="chat-title">Travel Assistant</span>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    Hello! I'm your India Travel Assistant. I can help you explore India's diverse states. 
+                    Select a state from the dropdown or ask me anything about travel in India!
+                </div>
+                <div class="typing-indicator" id="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your question here...">
+                <button id="send-button">Send</button>
+                <div class="loader" id="loader"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const stateDropdown = document.getElementById('state-dropdown');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const loader = document.getElementById('loader');
+            const popularQuestions = document.querySelectorAll('.question-chip');
+            const chatTitle = document.getElementById('chat-title');
+            
+            let currentState = '';
+            
+            // Handle sending messages
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message to chat
+                addMessage(message, 'user');
+                
+                // Clear input
+                userInput.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Send message to server
+                processMessage(message);
+            }
+            
+            // Add message to chat
+            function addMessage(message, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(sender + '-message');
+                messageElement.textContent = message;
+                chatMessages.appendChild(messageElement);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Show typing indicator
+            function showTypingIndicator() {
+                typingIndicator.style.display = 'block';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Hide typing indicator
+            function hideTypingIndicator() {
+                typingIndicator.style.display = 'none';
+            }
+            
+            // Process message with backend
+            function processMessage(message) {
+                loader.style.display = 'block';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // In a real app, this would be an AJAX call to your PHP backend
+                    fetch('process_chat.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'message=' + encodeURIComponent(message) + '&state=' + encodeURIComponent(currentState)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        hideTypingIndicator();
+                        loader.style.display = 'none';
+                        addMessage(data.response, 'bot');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        hideTypingIndicator();
+                        loader.style.display = 'none';
+                        
+                        // Fallback response for demo purposes
+                        let response = generateFallbackResponse(message, currentState);
+                        addMessage(response, 'bot');
+                    });
+                }, 1000);
+            }
+            
+            // Generate fallback response (for demo purposes)
+            function generateFallbackResponse(message, state) {
+                // This is just for demo purposes; in production, responses would come from the server
+                const lowerMessage = message.toLowerCase();
+                let stateInfo = '';
+                
+                if (state) {
+                    const stateName = state.replace(/-/g, ' ');
+                    stateInfo = stateName.charAt(0).toUpperCase() + stateName.slice(1);
+                }
+                
+                if (lowerMessage.includes('best time')) {
+                    if (state.includes('kerala') || state.includes('goa')) {
+                        return `The best time to visit ${stateInfo} is from October to March when the weather is pleasant and perfect for beaches.`;
+                    } else if (state.includes('rajasthan')) {
+                        return `The best time to visit ${stateInfo} is during the winter months (October to March) when the desert heat subsides.`;
+                    } else if (state.includes('himachal') || state.includes('uttarakhand')) {
+                        return `${stateInfo} is beautiful year-round. Summer (March-June) for general tourism, winter (December-February) for snow, and post-monsoon (September-November) for clear views.`;
+                    } else if (state.includes('delhi')) {
+                        return `The best time to visit Delhi is from October to March when the weather is pleasant. Avoid summer months (April-June) when temperatures can soar above 40°C.`;
+                    } else {
+                        return `For most parts of ${stateInfo || 'India'}, the winter season (October to March) is considered the best time to visit when the weather is pleasant.`;
+                    }
+                } else if (lowerMessage.includes('attraction') || lowerMessage.includes('place to see') || lowerMessage.includes('tourist place')) {
+                    if (state.includes('kerala')) {
+                        return `Top attractions in Kerala include the backwaters of Alleppey, beaches of Kovalam, hill stations like Munnar, and wildlife sanctuaries like Periyar.`;
+                    } else if (state.includes('rajasthan')) {
+                        return `Rajasthan's top attractions include the palaces of Jaipur, lakes of Udaipur, the desert city of Jaisalmer, and the blue city of Jodhpur.`;
+                    } else if (state.includes('goa')) {
+                        return `Goa is famous for its beaches like Baga and Calangute, Portuguese architecture, churches like Basilica of Bom Jesus, and vibrant nightlife.`;
+                    } else if (state.includes('tamil')) {
+                        return `Tamil Nadu offers ancient temples like Meenakshi and Brihadeeswara, hill stations like Ooty, and beaches like Marina Beach in Chennai.`;
+                    } else if (state.includes('delhi')) {
+                        return `Delhi's top attractions include Red Fort, Qutub Minar, Humayun's Tomb, India Gate, Lotus Temple, Akshardham Temple, and the bustling markets of Chandni Chowk and Connaught Place.`;
+                    } else {
+                        return `${stateInfo || 'India'} offers a diverse range of attractions including historical monuments, natural wonders, and cultural experiences. Could you specify what kind of attractions you're interested in?`;
+                    }
+                } else if (lowerMessage.includes('food') || lowerMessage.includes('cuisine') || lowerMessage.includes('dish')) {
+                    if (state.includes('punjab')) {
+                        return `Punjab is known for rich, buttery dishes like Butter Chicken, Sarson da Saag with Makki di Roti, Chole Bhature, and various lassi varieties.`;
+                    } else if (state.includes('kerala')) {
+                        return `Kerala cuisine features coconut-based dishes like Appam with Stew, Seafood curry, Kerala Parotta, and Sadhya (traditional feast).`;
+                    } else if (state.includes('bengal')) {
+                        return `West Bengal is famous for sweets like Rasgulla and Sandesh, fish preparations like Macher Jhol, and dishes like Kosha Mangsho.`;
+                    } else if (state.includes('delhi')) {
+                        return `Delhi is a food lover's paradise with street foods like Chaat, Chole Bhature, Paratha, Kebabs, and Butter Chicken. Don't miss the food at Old Delhi's Paranthe Wali Gali and the kebabs at Karim's.`;
+                    } else {
+                        return `${stateInfo || 'Indian'} cuisine is diverse and flavorful. Each region has its own specialties using local ingredients and traditional cooking methods.`;
+                    }
+                } else if (lowerMessage.includes('reach') || lowerMessage.includes('get to')) {
+                    if (state.includes('delhi')) {
+                        return `Delhi is well-connected by air (Indira Gandhi International Airport), train (New Delhi Railway Station, Old Delhi Railway Station), and road. The city also has an extensive Metro rail network for local transportation.`;
+                    } else {
+                        return `${stateInfo || 'Most Indian states'} can be reached by air (major cities have airports), train (Indian Railways has extensive coverage), or road. What's your starting point?`;
+                    }
+                } else if (lowerMessage.includes('stay') || lowerMessage.includes('hotel') || lowerMessage.includes('accommodation')) {
+                    if (state.includes('delhi')) {
+                        return `Delhi offers accommodation for all budgets, from luxury hotels in Central Delhi and Aerocity to mid-range options in Karol Bagh and budget stays in Paharganj. Areas like Connaught Place, South Delhi, and Dwarka are popular for tourists.`;
+                    } else {
+                        return `${stateInfo || 'India'} offers a wide range of accommodation options from luxury hotels and resorts to budget guesthouses and homestays. Tourism hotspots have more options.`;
+                    }
+                } else if (lowerMessage.includes('festival') || lowerMessage.includes('celebration')) {
+                    if (state.includes('punjab')) {
+                        return `Punjab celebrates Lohri, Baisakhi, and Teej with great enthusiasm, featuring folk dances like Bhangra and Giddha.`;
+                    } else if (state.includes('kerala')) {
+                        return `Kerala's major festivals include Onam, Vishu, and Thrissur Pooram with stunning elephant processions.`;
+                    } else if (state.includes('rajasthan')) {
+                        return `Rajasthan hosts colorful festivals like Pushkar Camel Fair, Desert Festival in Jaisalmer, and Teej celebrating the monsoon.`;
+                    } else if (state.includes('delhi')) {
+                        return `Delhi celebrates many festivals with great enthusiasm including Diwali, Holi, Durga Puja, Lohri, and Eid. The city also hosts cultural events like Qutub Festival, Delhi International Arts Festival, and food festivals throughout the year.`;
+                    } else {
+                        return `${stateInfo || 'India'} has numerous festivals throughout the year celebrating various cultural, religious, and seasonal events, each with unique traditions.`;
+                    }
+                } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi ')) {
+                    return `Hello! How can I help you with your travel plans${state ? ' to ' + stateInfo : ' in India'}?`;
+                } else {
+                    return `Thank you for your question about ${stateInfo || 'Indian travel and tourism'}. In a complete implementation, I would provide accurate information from a database. How else can I assist you?`;
+                }
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Handle state selection from dropdown
+            stateDropdown.addEventListener('change', function() {
+                const state = this.value;
+                currentState = state;
+                
+                if (state === '') {
+                    chatTitle.textContent = 'Travel Assistant';
+                    addMessage(`You've selected All of India. What would you like to know?`, 'bot');
+                } else {
+                    // Update chat title
+                    const stateName = state.replace(/-/g, ' ');
+                    chatTitle.textContent = stateName.charAt(0).toUpperCase() + stateName.slice(1);
+                    
+                    // Add system message about state selection
+                    const stateMessage = `You've selected ${stateName.charAt(0).toUpperCase() + stateName.slice(1)}. What would you like to know about this state?`;
+                    addMessage(stateMessage, 'bot');
+                }
+            });
+            
+            // Handle popular questions
+            popularQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const questionText = this.textContent;
+                    userInput.value = questionText;
+                    sendMessage();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
