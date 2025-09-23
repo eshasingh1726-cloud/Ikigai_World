@@ -1,0 +1,376 @@
+onclick="initiatePayment('Tirupati Balaji Darshan', 8999)
+<!-- Trip Category Boxes -->
+  <div class="container trip-categories">
+    <h2 class="section-title"></h2>
+    <div class="row">
+      <!-- Solo Trip Box -->
+      <div class="col-md-4 mb-4">
+        <div class="category-box">
+          <div class="category-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <h3 class="category-title">Solo Trip</h3>
+          <p class="category-description">
+            Embark on a journey of self-discovery through India's diverse landscapes. 
+            Perfect for independent travelers seeking adventure and personal growth.
+          </p>
+          <a href = "solo.html"><button class="category-button">Explore Solo</button></a>
+        </div>
+      </div>
+      
+      <!-- Family Trip Box -->
+      <div class="col-md-4 mb-4">
+        <div class="category-box">
+          <div class="category-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="category-title">Family Trip</h3>
+          <p class="category-description">
+            Create lasting memories with your loved ones. Our family packages offer 
+            activities and experiences that cater to all ages.
+          </p>
+          <a href = "Family Trip.html"><button class="category-button">Family Adventures</button></a>
+        </div>
+      </div>
+      
+      <!-- Group Trip Box -->
+      <div class="col-md-4 mb-4">
+        <div class="category-box">
+          <div class="category-icon">
+            <i class="fas fa-globe-asia"></i>
+          </div>
+          <h3 class="category-title">Group Trip</h3>
+          <p class="category-description">
+            Travel with friends or join new companions on curated group experiences. 
+            Share the joy of discovering India's treasures together.
+          </p>
+          <a href = "group.html"><button class="category-button">Group Journeys</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Couple Trip Box -->
+<div class="col-md-3 mb-4">
+  <div class="category-box">
+    <div class="category-icon">
+      <i class="fas fa-heart"></i>
+    </div>
+    <h3 class="category-title">Couple Trip</h3>
+    <p class="category-description">
+      Experience romantic getaways in India's most enchanting locations.
+      Create unforgettable memories with your special someone.
+    </p>
+    <a href="Couple.Triphtml.html"><button class="category-button">Romantic Escapes</button></a>
+  </div>
+</div>
+
+
+openAI API key = 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
+
+emailJs service ID = service_4ow4w8b
+emailJs templateID = template_b00t5hq
+
+emailjs.init('Brjccfg_X7DsVZbDa');
+
+$(document).ready(function() {
+    const suggestionsSection = $('#suggestionsSection');
+    const suggestionsList = $('#suggestionsList');
+    const planTripButton = $('#planTrip');
+    const tripDetailsSection = $('#tripDetailsSection');
+    const tripDetailsDiv = $('#tripDetails');
+    const sendEmailButton = $('#sendEmail');
+    const emailStatusDiv = $('#emailStatus');
+    const itineraryForm = $('#itineraryForm');
+
+    // Initialize EmailJS
+    (function() {
+        emailjs.init("Brjccfg_X7DsVZbDa"); // Replace with your actual User ID
+    })();
+
+    // Function to get AI suggestions (Placeholder)
+    async function getAISuggestions(destination, duration, interests) {
+        // In a real application, you would make an API call to an AI service here.
+        // This is a placeholder that returns some dummy suggestions.
+        return new Promise(resolve => {
+            setTimeout(() => {
+                const suggestions = [
+                    `Explore historical forts and palaces in ${destination}.`,
+                    `Enjoy the local cuisine of ${destination}.`,
+                    `Based on your interest in ${interests}, consider visiting [Specific Attraction].`
+                ];
+                resolve(suggestions);
+            }, 1000); // Simulate API delay
+        });
+    }
+
+    // Function to generate detailed trip plan (Placeholder for API integration)
+    async function generateDetailedTrip(destination, duration, interests) {
+        // In a real application, you would make an API call to a trip planning service here.
+        // This is a placeholder that returns some dummy trip details.
+        return new Promise(resolve => {
+            setTimeout(() => {
+                const tripPlan = `
+                    <h3>Day 1: Arrival in ${destination}</h3>
+                    <p>Check into your hotel and explore the local markets.</p>
+                    <h3>Day 2: Sightseeing</h3>
+                    <p>Visit [Attraction 1] and [Attraction 2].</p>
+                    <h3>Day ${duration}: Departure</h3>
+                    <p>Enjoy your last breakfast and head to the airport/station.</p>
+                    <p>This is a sample itinerary based on your interests in ${interests} and a ${duration}-day trip to ${destination}.</p>
+                `;
+                resolve(tripPlan);
+            }, 1500); // Simulate API delay
+        });
+    }
+
+    // Event listener for getting AI suggestions
+    $('#getSuggestions').on('click', async function() {
+        const destination = $('#destination').val();
+        const duration = $('#duration').val();
+        const interests = $('#interests').val();
+
+        if (destination && duration && interests) {
+            suggestionsList.empty();
+            suggestionsSection.show();
+            suggestionsList.append('<li class="list-group-item">Fetching suggestions...</li>');
+
+            const suggestions = await getAISuggestions(destination, duration, interests);
+            suggestionsList.empty();
+            if (suggestions.length > 0) {
+                suggestions.forEach(suggestion => {
+                    suggestionsList.append(`<li class="list-group-item">${suggestion}</li>`);
+                });
+            } else {
+                suggestionsList.append('<li class="list-group-item">No suggestions found.</li>');
+            }
+        } else {
+            alert('Please fill in all the details.');
+        }
+    });
+
+    // Event listener for planning the detailed trip
+    planTripButton.on('click', async function() {
+        const destination = $('#destination').val();
+        const duration = $('#duration').val();
+        const interests = $('#interests').val();
+
+        if (destination && duration && interests) {
+            tripDetailsDiv.empty();
+            tripDetailsSection.show();
+            tripDetailsDiv.html('<p>Generating detailed trip plan...</p>');
+
+            const detailedTrip = await generateDetailedTrip(destination, duration, interests);
+            tripDetailsDiv.html(detailedTrip);
+        } else {
+            alert('Please provide destination, duration, and interests first.');
+        }
+    });
+
+    // Event listener for sending email
+    sendEmailButton.on('click', function() {
+        const userEmail = $('#userEmail').val();
+        const tripDetails = tripDetailsDiv.html();
+
+        if (!userEmail) {
+            alert('Please enter your email address.');
+            return;
+        }
+
+        if (!tripDetails) {
+            alert('Please generate the trip plan first.');
+            return;
+        }
+
+        const templateParams = {
+            to_email: userEmail,
+            trip_details: tripDetails
+        };
+
+        emailjs.send("service_4ow4w8b", "template_b00t5hq", templateParams)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                emailStatusDiv.html('<div class="alert alert-success">Email sent successfully!</div>');
+                itineraryForm.trigger("reset"); // Clear the form
+                suggestionsSection.hide();
+                tripDetailsSection.hide();
+                setTimeout(() => {
+                    emailStatusDiv.empty();
+                }, 3000);
+            }, function(error) {
+                console.log('FAILED...', error);
+                emailStatusDiv.html('<div class="alert alert-danger">Failed to send email. Please try again.</div>');
+            });
+    });
+});
+
+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
+
+
+
+
+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
+
+
+
+<!-- Inline script to help troubleshoot -->
+<script>
+  // Sample data - replace with your actual data
+  const hotels = [
+      {
+          name: "The Taj Palace",
+          location: "New Delhi",
+          price: 12000,
+          category: "Luxury",
+          amenities: ["Swimming Pool", "Spa", "Fitness Center", "Free WiFi", "Restaurant"]
+      },
+      {
+          name: "Hotel Heritage Inn",
+          location: "Jaipur",
+          price: 5000,
+          category: "Mid-range",
+          amenities: ["Free WiFi", "Restaurant"]
+      },
+      // Your complete array of 69 hotels would go here
+  ];
+
+  // Check if jQuery is loaded properly
+  $(document).ready(function() {
+      console.log("jQuery is loaded and document is ready!");
+
+      // Get unique locations for location dropdown
+      const locations = [...new Set(hotels.map(hotel => hotel.location))].sort();
+      const locationSelect = $('#locationFilter');
+      
+      console.log("Locations found:", locations);
+      console.log("Location select element found:", locationSelect.length > 0);
+      
+      // Clear any existing options first
+      locationSelect.empty();
+      locationSelect.append('<option value="">All Locations</option>');
+      
+      locations.forEach(location => {
+          locationSelect.append(`<option value="${location}">${location}</option>`);
+      });
+
+      // Get unique amenities for filter checkboxes
+      const allAmenities = new Set();
+      hotels.forEach(hotel => {
+          hotel.amenities.forEach(amenity => {
+              allAmenities.add(amenity);
+          });
+      });
+
+      const amenitiesContainer = $('#amenitiesContainer');
+      [...allAmenities].sort().forEach(amenity => {
+          const amenityId = amenity.toLowerCase().replace(/[^a-z0-9]/g, '');
+          amenitiesContainer.append(`
+              <div class="form-check">
+                  <input type="checkbox" class="form-check-input amenity-filter" id="${amenityId}" data-amenity="${amenity}">
+                  <label class="form-check-label" for="${amenityId}">${amenity}</label>
+              </div>
+          `);
+      });
+
+      $('#filterHotels').on('click', function () {
+          const locationFilter = $('#locationFilter').val();
+          const minPriceFilter = parseInt($('#minPriceFilter').val()) || 0;
+          const maxPriceFilter = parseInt($('#maxPriceFilter').val()) || Infinity;
+          const categoryFilter = $('#categoryFilter').val();
+
+          // Get selected amenities
+          const selectedAmenities = [];
+          $('.amenity-filter:checked').each(function () {
+              selectedAmenities.push($(this).data('amenity'));
+          });
+
+          const filteredHotels = hotels.filter(hotel => {
+              const locationMatch = !locationFilter || hotel.location === locationFilter;
+              const priceMatch = hotel.price >= minPriceFilter && hotel.price <= maxPriceFilter;
+              const categoryMatch = !categoryFilter || hotel.category === categoryFilter;
+
+              // Check if hotel has all selected amenities
+              const amenitiesMatch = selectedAmenities.length === 0 ||
+                  selectedAmenities.every(amenity => hotel.amenities.includes(amenity));
+
+              return locationMatch && priceMatch && categoryMatch && amenitiesMatch;
+          });
+
+          displayHotels(filteredHotels);
+      });
+
+      $('#resetFilters').on('click', function () {
+          $('#locationFilter').val('');
+          $('#minPriceFilter').val('');
+          $('#maxPriceFilter').val('');
+          $('#categoryFilter').val('');
+          $('.amenity-filter').prop('checked', false);
+          displayHotels(hotels);
+      });
+
+      $('#sortHotels').on('change', function () {
+          const sortBy = $(this).val();
+          const currentHotels = getDisplayedHotels();
+
+          if (sortBy === 'price-low') {
+              currentHotels.sort((a, b) => a.price - b.price);
+          } else if (sortBy === 'price-high') {
+              currentHotels.sort((a, b) => b.price - a.price);
+          } else if (sortBy === 'name') {
+              currentHotels.sort((a, b) => a.name.localeCompare(b.name));
+          }
+
+          displayHotels(currentHotels);
+      });
+
+      function getDisplayedHotels() {
+          const hotelElements = $('.hotel-card');
+          const displayedHotels = [];
+
+          hotelElements.each(function () {
+              const hotelName = $(this).find('h5').text();
+              const hotel = hotels.find(h => h.name === hotelName);
+              if (hotel) {
+                  displayedHotels.push(hotel);
+              }
+          });
+
+          return displayedHotels.length > 0 ? displayedHotels : hotels;
+      }
+
+      function displayHotels(hotelList) {
+          const hotelListDiv = $('#hotelList');
+          hotelListDiv.empty();
+
+          if (hotelList.length === 0) {
+              hotelListDiv.html('<div class="alert alert-info">No hotels found matching your criteria.</div>');
+              return;
+          }
+
+          $('#resultsCount').text(`Showing ${hotelList.length} results`);
+
+          hotelList.forEach(hotel => {
+              const hotelCard = $(`
+                  <div class="hotel-card">
+                      <div class="row">
+                          <div class="col-md-8">
+                              <h5>${hotel.name}</h5>
+                              <p><strong>Location:</strong> ${hotel.location}</p>
+                              <p><strong>Price:</strong> ₹${hotel.price} per night</p>
+                              <p><strong>Category:</strong> ${hotel.category}</p>
+                              <p><strong>Amenities:</strong> ${hotel.amenities.join(', ')}</p>
+                          </div>
+                          <div class="col-md-4 text-right">
+                              <span class="price-badge">₹${hotel.price}</span>
+                              <button class="btn btn-primary mt-3">Book Now</button>
+                          </div>
+                      </div>
+                  </div>
+              `);
+              hotelListDiv.append(hotelCard);
+          });
+      }
+
+      // Initial display of all hotels
+      displayHotels(hotels);
+  });
+  </script>
