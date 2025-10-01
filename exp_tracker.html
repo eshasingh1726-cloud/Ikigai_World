@@ -1,0 +1,1235 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikikgai Expense Tracker - India</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="ikigai-common.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@500;700&display=swap');
+        
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', 'Segoe UI', sans-serif;
+        }
+        
+        /* Set up for sticky footer - fixed positioning */
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            background-color: #bedbd3;
+            min-height: 100vh;
+            padding-bottom: 60px; /* Increased to accommodate footer height */
+            overflow-x: hidden;
+            position: relative;
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Background gradient instead of video */
+        .gradient-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0d3021, #4D6255, #68B777);
+            z-index: -2;
+        }
+        
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 48, 33, 0.7);
+            z-index: -1;
+        }
+        
+        :root {
+            --primary-color: #68B777;
+            --secondary-color: #4D6255;
+            --background-color: #bedbd3;
+            --card-color: rgba(13, 48, 33, 0.7);
+            --text-color: #bedbd3;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Normal navigation bar */
+        .navbar {
+            background-color: rgba(13, 48, 33, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Updated navigation layout for better space utilization */
+        .navbar .container {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            width: 100%;
+        }
+        
+        /* Logo and tagline */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 1;
+            margin-right: 10px;
+            min-width: 180px;
+        }
+        
+        /* Logo styling with smaller size */
+        .logo-image {
+            width: 150px;
+            height: auto;
+            position: relative;
+            overflow: visible;
+            background: none;
+            box-shadow: none;
+            border: none;
+        }
+        
+        .logo-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+            border: none;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+            object-fit: contain;
+        }
+        
+        .logo-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Tagline with updated font to match logo */
+        .tagline {
+            color: rgba(190, 219, 211, 0.9);
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+            letter-spacing: 0.8px;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+            white-space: normal;
+            display: none;
+        }
+        
+        /* Navigation links - updated with box styling */
+        .nav-links {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 4px;
+            margin-right: 5px;
+        }
+        
+        .nav-links a {
+            color: rgba(190, 219, 211, 0.8);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 8px;
+            transition: all 0.3s;
+            border-radius: 6px;
+            white-space: nowrap;
+            border: 1px solid rgba(104, 183, 119, 0.3);
+            background-color: rgba(13, 48, 33, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            font-size: 14px;
+        }
+        
+        .nav-links a:hover, 
+        .nav-links a.active {
+            color: #bedbd3;
+            background-color: rgba(104, 183, 119, 0.3);
+            border-color: rgba(104, 183, 119, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Expanded search bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 10px;
+            flex-grow: 1;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 8px 16px;
+            padding-right: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(77, 98, 85, 0.5);
+            background: rgba(190, 219, 211, 0.1);
+            color: #bedbd3;
+            outline: none;
+            transition: all 0.3s;
+            height: 40px;
+        }
+        
+        .search-container input::placeholder {
+            color: rgba(190, 219, 211, 0.6);
+        }
+        
+        .search-container input:focus {
+            background: rgba(190, 219, 211, 0.2);
+            box-shadow: 0 0 10px rgba(104, 183, 119, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(190, 219, 211, 0.7);
+            cursor: pointer;
+        }
+        
+        /* Search results dropdown */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 48, 33, 0.95);
+            border-radius: 8px;
+            margin-top: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .search-results.active {
+            display: block;
+        }
+        
+        .search-result-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+            color: #bedbd3;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .search-result-item:hover {
+            background: rgba(104, 183, 119, 0.2);
+        }
+        
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight {
+            color: #68B777;
+            font-weight: bold;
+        }
+        
+        .no-results {
+            padding: 15px;
+            text-align: center;
+            color: #bedbd3;
+        }
+        
+        /* Action buttons - improved alignment and added sign up button */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-actions button {
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            height: 40px;
+            font-size: 14px;
+        }
+        
+        .nav-actions button:first-child {
+            background: transparent;
+            color: #bedbd3;
+            border: 1px solid rgba(190, 219, 211, 0.3);
+        }
+        
+        .nav-actions button:first-child:hover {
+            border-color: rgba(190, 219, 211, 0.5);
+            background: rgba(77, 98, 85, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .nav-actions button:last-child {
+            background: rgba(104, 183, 119, 0.3);
+            color: #bedbd3;
+            border: 1px solid rgba(104, 183, 119, 0.5);
+        }
+        
+        .nav-actions button:last-child:hover {
+            background: rgba(104, 183, 119, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* Show tagline on larger screens */
+        @media (min-width: 1200px) {
+            .tagline {
+                display: block;
+            }
+            
+            .logo-image {
+                width: 180px;
+            }
+            
+            .nav-links a, .nav-actions button {
+                font-size: 16px;
+            }
+        }
+        
+        /* Medium screens adjustments */
+        @media (max-width: 1200px) and (min-width: 992px) {
+            .search-container {
+                max-width: 450px;
+            }
+        }
+        
+        /* Expense Tracker Specific Styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 40px;
+            flex: 1; /* This allows the container to take up available space */
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            color: var(--text-color);
+        }
+        
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            border: 1px solid rgba(77, 98, 85, 0.3);
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .expense-form {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            border: 1px solid rgba(77, 98, 85, 0.3);
+            color: var(--text-color);
+        }
+        
+        .expense-form h2 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .expense-form h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #68B777, transparent);
+        }
+        
+        #expense-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        input, select {
+            padding: 10px;
+            border: 1px solid rgba(77, 98, 85, 0.5);
+            border-radius: 6px;
+            background: rgba(190, 219, 211, 0.1);
+            color: var(--text-color);
+            width: 100%;
+        }
+        
+        /* Dropdown styling */
+        select {
+            background-color: rgba(13, 48, 33, 0.9);
+            color: #bedbd3;
+            cursor: pointer;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23bedbd3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+        
+        /* Dropdown options styling */
+        select option {
+            background-color: rgba(68, 131, 79, 0.9);
+            color: #bedbd3;
+            padding: 10px;
+        }
+        
+        input::placeholder, select::placeholder {
+            color: rgba(190, 219, 211, 0.6);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(104, 183, 119, 0.4);
+            background: rgba(190, 219, 211, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            grid-column: span 2;
+        }
+        
+        button:hover {
+            background-color: rgba(104, 183, 119, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .expense-list {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            border: 1px solid rgba(77, 98, 85, 0.3);
+            padding: 20px;
+            color: var(--text-color);
+            margin-bottom: 60px; /* Added for footer spacing */
+        }
+        
+        .expense-list h2 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .expense-list h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #68B777, transparent);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(77, 98, 85, 0.5);
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+            color: var(--text-color);
+        }
+        
+        tbody tr:hover {
+            background-color: rgba(104, 183, 119, 0.1);
+        }
+        
+        .delete-btn {
+            background-color: rgba(255, 71, 87, 0.7);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(255, 71, 87, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        /* Star animations */
+        .star {
+            position: fixed;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ffffff;
+            animation: twinkle 5s infinite ease-in-out;
+            z-index: -1;
+        }
+        
+        .circle {
+            position: fixed;
+            background: #68B777;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 8s infinite ease-in-out alternate;
+            z-index: -1;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -10px); }
+            100% { transform: translate(-10px, 10px); }
+        }
+        
+        /* Fixed footer styles */
+        footer {
+            background-color: rgba(13, 48, 33, 0.85);
+            color: rgba(190, 219, 211, 0.8);
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(77, 98, 85, 0.3);
+            z-index: 100;
+        }
+        
+        footer .copyright p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        /* Mobile responsiveness */
+        .navbar-toggler {
+            border: 1px solid rgba(190, 219, 211, 0.3);
+            color: #bedbd3;
+        }
+        
+        /* Ensure the navbar collapses properly on mobile */
+        @media (max-width: 992px) {
+            .navbar-collapse {
+                flex-direction: column;
+                background: rgba(13, 48, 33, 0.95);
+                border-radius: 8px;
+                padding: 15px;
+                margin-top: 10px;
+            }
+            
+            .logo-image {
+                width: 150px;
+            }
+            
+            .tagline {
+                font-size: 16px;
+                display: none;
+            }
+            
+            .navbar .container {
+                padding: 0 15px;
+            }
+            
+            .search-container {
+                max-width: 100%;
+                margin: 10px 0;
+                width: 100%;
+            }
+            
+            .nav-links {
+                width: 100%;
+                margin-bottom: 10px;
+                flex-wrap: wrap;
+            }
+            
+            .nav-actions {
+                margin-top: 10px;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .summary {
+                flex-direction: column;
+            }
+            
+            .summary-card {
+                margin-bottom: 15px;
+            }
+            
+            #expense-form {
+                grid-template-columns: 1fr;
+            }
+            
+            button {
+                grid-column: span 1;
+            }
+            
+            .container {
+                padding: 60px 15px 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-image {
+                width: 120px;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .nav-actions {
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            th, td {
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gradient Background instead of video -->
+    <div class="gradient-background"></div>
+    <div class="gradient-overlay"></div>
+    
+    <!-- Star and circle decorations -->
+    <script>
+        function createStarsAndCircles() {
+            // Create stars
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.body.appendChild(star);
+            }
+            
+            // Create circles
+            const colors = ['#68B777', '#8aac80', '#4D6255'];
+            for (let i = 0; i < 20; i++) {
+                const circle = document.createElement('div');
+                circle.classList.add('circle');
+                
+                // Random size
+                const size = Math.random() * 30 + 10;
+                circle.style.width = `${size}px`;
+                circle.style.height = `${size}px`;
+                
+                // Random position
+                circle.style.top = `${Math.random() * 100}%`;
+                circle.style.left = `${Math.random() * 100}%`;
+                
+                // Random color
+                circle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random animation delay
+                circle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.body.appendChild(circle);
+            }
+        }
+        window.onload = createStarsAndCircles;
+    </script>
+
+    <!-- Updated Navigation Bar with Search Functionality -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Logo and Tagline - Reduced width and margins -->
+            <div class="logo-container">
+                <div class="logo-image">
+                    <a href="home2.html"><img src="New.png" alt="Ikigai World Logo"></a>
+                </div>
+                <div class="tagline-container">
+                    <p class="tagline">Unveil the Wonders of India with Ikigai World</p>
+                </div>
+            </div>
+            
+            <!-- Toggle Button for Mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="fas fa-bars text-light"></i>
+            </button>
+            
+            <!-- Nav Links and Actions -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="nav-links ms-auto">
+                    <a href="Destination.html">Destinations</a>
+                    <a href="TravelGuide.html">Travel Guides</a>
+                    <a href="about-us-page.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                
+                <!-- Updated Search Bar with Wider Width -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search destinations...">
+                    <span class="search-icon" id="searchButton"><i class="fas fa-search"></i></span>
+                    <!-- Search Results Container -->
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <!-- Action Buttons -->
+        <div class="nav-actions">
+            <button>Log In</button>
+            <button>Sign Up</button>
+          </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Travel Expense Tracker - India</h1>
+        </header>
+
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Total Expenses</h3>
+                <p id="total-amount">₹0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Daily Average</h3>
+                <p id="daily-average">₹0</p>
+            </div>
+            <div class="summary-card">
+                <h3>No. of Expenses</h3>
+                <p id="expense-count">0</p>
+            </div>
+        </div>
+
+        <div class="expense-form">
+            <h2>Add New Expense</h2>
+            <form id="expense-form">
+                <input type="text" id="expense-description" placeholder="What did you spend on?" required>
+                <input type="number" id="expense-amount" placeholder="Amount in INR" min="1" required>
+                <select id="expense-category" required>
+                    <option value="">Select a category</option>
+                    <option value="Food">Food & Drinks</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Accommodation">Accommodation</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Sightseeing">Sightseeing</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="HealthMedical">Health & Medical</option>
+                    <option value="Communication">Communication</option>
+                    <option value="Tours">Tours & Guides</option>
+                    <option value="Gifts">Gifts & Souvenirs</option>
+                    <option value="LocalServices">Local Services</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="date" id="expense-date" required>
+                <input type="text" id="expense-location" placeholder="City/Place in India">
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+
+        <div class="expense-list">
+            <h2>Your Expenses</h2>
+            <table id="expenses-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expenses-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2025 Designed by Ikigai World. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('expense-date').valueAsDate = new Date();
+            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+            renderExpenses();
+            updateSummary();
+
+            // Fix the delete button by making the function globally accessible
+            window.deleteExpense = function(id) {
+                expenses = expenses.filter(expense => expense.id !== id);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                renderExpenses();
+                updateSummary();
+            };
+
+            document.getElementById('expense-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const description = document.getElementById('expense-description').value.trim();
+                const amount = parseFloat(document.getElementById('expense-amount').value);
+                const category = document.getElementById('expense-category').value;
+                const date = document.getElementById('expense-date').value;
+                const location = document.getElementById('expense-location').value.trim();
+                
+                if (!description || isNaN(amount) || amount <= 0 || !category || !date) {
+                    alert('Please fill in all required fields correctly.');
+                    return;
+                }
+
+                const newExpense = { id: Date.now(), description, amount, category, date, location };
+                expenses.push(newExpense);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                
+                // Reset the form
+                document.getElementById('expense-form').reset();
+                document.getElementById('expense-date').valueAsDate = new Date();
+                
+                renderExpenses();
+                updateSummary();
+            });
+
+            function renderExpenses() {
+                const expensesBody = document.getElementById('expenses-body');
+                expensesBody.innerHTML = '';
+                
+                // Sort expenses by date (newest first)
+                expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                expenses.forEach(expense => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${new Date(expense.date).toLocaleDateString('en-IN')}</td>
+                        <td>${expense.description}</td>
+                        <td>${expense.category}</td>
+                        <td>${expense.location || '-'}</td>
+                        <td>${expense.location || '-'}</td>
+<td>₹${expense.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</td>
+<td>
+    <button class="delete-btn" onclick="deleteExpense(${expense.id})">
+        <i class="fas fa-trash"></i>
+    </button>
+</td>
+                    `;
+                    expensesBody.appendChild(row);
+                });
+                
+                if (expenses.length === 0) {
+                    const emptyRow = document.createElement('tr');
+                    emptyRow.innerHTML = `
+                        <td colspan="6" style="text-align: center;">No expenses added yet. Start tracking your travel expenses!</td>
+                    `;
+                    expensesBody.appendChild(emptyRow);
+                }
+            }
+
+            function updateSummary() {
+                const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+                document.getElementById('total-amount').textContent = `₹${totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+                
+                document.getElementById('expense-count').textContent = expenses.length;
+                
+                // Calculate daily average based on unique dates
+                const uniqueDates = new Set(expenses.map(expense => expense.date));
+                const daysCount = uniqueDates.size || 1; // Avoid division by zero
+                const dailyAverage = totalAmount / daysCount;
+                document.getElementById('daily-average').textContent = `₹${dailyAverage.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+            }
+
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const searchButton = document.getElementById('searchButton');
+            
+            // Sample search data for destinations in India
+            const destinationsData = [
+                "Agra", "Jaipur", "Delhi", "Mumbai", "Goa", "Varanasi", 
+                "Udaipur", "Kerala", "Ladakh", "Darjeeling", "Amritsar", 
+                "Rishikesh", "Hampi", "Kolkata", "Chennai", "Mysore", 
+                "Ajanta & Ellora Caves", "Andaman Islands", "Khajuraho", 
+                "Shimla", "Manali", "Ooty", "Munnar", "Rajasthan", 
+                "Taj Mahal", "Red Fort", "Gateway of India", "India Gate"
+            ];
+            
+            function performSearch() {
+                const query = searchInput.value.toLowerCase().trim();
+                
+                if (query.length < 2) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+                
+                const matchedResults = destinationsData.filter(item => 
+                    item.toLowerCase().includes(query)
+                ).slice(0, 5); // Limit to 5 results
+                
+                searchResults.innerHTML = '';
+                
+                if (matchedResults.length > 0) {
+                    matchedResults.forEach(result => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        
+                        // Highlight the matching part
+                        const matchIndex = result.toLowerCase().indexOf(query);
+                        const beforeMatch = result.substring(0, matchIndex);
+                        const match = result.substring(matchIndex, matchIndex + query.length);
+                        const afterMatch = result.substring(matchIndex + query.length);
+                        
+                        resultItem.innerHTML = `${beforeMatch}<span class="highlight">${match}</span>${afterMatch}`;
+                        
+                        resultItem.addEventListener('click', () => {
+                            searchInput.value = result;
+                            searchResults.classList.remove('active');
+                            // You could add navigation to the destination page here
+                        });
+                        
+                        searchResults.appendChild(resultItem);
+                    });
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = 'No destinations found';
+                    searchResults.appendChild(noResults);
+                }
+                
+                searchResults.classList.add('active');
+            }
+            
+            searchInput.addEventListener('input', performSearch);
+            searchButton.addEventListener('click', performSearch);
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target) && !searchButton.contains(e.target)) {
+                    searchResults.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  // Mapping of keywords to their corresponding pages
+  const pageMapping = {
+    // Destination related keywords
+    "top": "TopDestinations.html",
+    "best": "TopDestinations.html",
+    "destinations": "TopDestinations.html",
+    "places": "TopDestinations.html",
+    "tourist": "TopDestinations.html",
+    "famous": "TopDestinations.html",
+    
+    // Activities and Trekking
+    "trek": "ActivitiesTrekkingExperience.html",
+    "trekking": "ActivitiesTrekkingExperience.html",
+    "hiking": "ActivitiesTrekkingExperience.html",
+    "adventure": "ActivitiesTrekkingExperience.html",
+    "outdoor": "ActivitiesTrekkingExperience.html",
+    "activities": "ActivitiesTrekkingExperience.html",
+    "sports": "ActivitiesTrekkingExperience.html",
+    
+    // Food and Cuisine
+    "food": "FoodLocalCusine.html",
+    "cuisine": "FoodLocalCusine.html",
+    "dishes": "FoodLocalCusine.html",
+    "restaurant": "FoodLocalCusine.html",
+    "eat": "FoodLocalCusine.html",
+    "dining": "FoodLocalCusine.html",
+    "culinary": "FoodLocalCusine.html",
+    
+    // Festivals and Events
+    "festival": "FestivalEvents.html",
+    "events": "FestivalEvents.html",
+    "celebration": "FestivalEvents.html",
+    "cultural": "FestivalEvents.html",
+    "ceremony": "FestivalEvents.html",
+    "fair": "FestivalEvents.html",
+    
+    // Heritage and Historical Tourism
+    "heritage": "HeritageHistoricalTourism.html",
+    "historical": "HeritageHistoricalTourism.html",
+    "monument": "HeritageHistoricalTourism.html",
+    "fort": "HeritageHistoricalTourism.html",
+    "palace": "HeritageHistoricalTourism.html",
+    "history": "HeritageHistoricalTourism.html",
+    "ancient": "HeritageHistoricalTourism.html",
+    "architecture": "HeritageHistoricalTourism.html",
+    
+    // Markets and Shopping
+    "market": "LocalMarketSouvenirs.html",
+    "shop": "LocalMarketSouvenirs.html",
+    "shopping": "LocalMarketSouvenirs.html",
+    "souvenir": "LocalMarketSouvenirs.html",
+    "handicraft": "LocalMarketSouvenirs.html",
+    "bazaar": "LocalMarketSouvenirs.html",
+    "buy": "LocalMarketSouvenirs.html",
+    
+    // Photography
+    "photo": "Photospots.html",
+    "photography": "Photospots.html",
+    "spots": "Photospots.html",
+    "scenic": "Photospots.html",
+    "view": "Photospots.html",
+    "camera": "Photospots.html",
+    "instagram": "Photospots.html",
+    
+    // Religious and Spiritual Tourism
+    "religious": "ReligousSpiritualtourism.html",
+    "spiritual": "ReligousSpiritualtourism.html",
+    "temple": "ReligousSpiritualtourism.html",
+    "mosque": "ReligousSpiritualtourism.html",
+    "church": "ReligousSpiritualtourism.html",
+    "pilgrimage": "ReligousSpiritualtourism.html",
+    "holy": "ReligousSpiritualtourism.html",
+    "sacred": "ReligousSpiritualtourism.html",
+    
+    // Seasonal Travel
+    "season": "SeasonalTravel.html",
+    "seasonal": "SeasonalTravel.html",
+    "weather": "SeasonalTravel.html",
+    "monsoon": "SeasonalTravel.html",
+    "summer": "SeasonalTravel.html",
+    "winter": "SeasonalTravel.html",
+    "spring": "SeasonalTravel.html",
+    "autumn": "SeasonalTravel.html",
+    "fall": "SeasonalTravel.html",
+    "best time": "SeasonalTravel.html",
+    "when to visit": "SeasonalTravel.html",
+  };
+
+  // Sample destination data with page links
+  const destinations = [
+    { name: "Agra", description: "Home to the Taj Mahal", type: "Heritage", page: "HeritageHistoricalTourism.html" },
+    { name: "Jaipur", description: "Pink City with royal palaces", type: "Heritage", page: "HeritageHistoricalTourism.html" },
+    { name: "Goa", description: "Beautiful beaches and nightlife", type: "Beach", page: "TopDestinations.html" },
+    { name: "Kerala", description: "God's own country with backwaters", type: "Nature", page: "TopDestinations.html" },
+    { name: "Darjeeling", description: "Tea gardens and Himalayan views", type: "Hill Station", page: "TopDestinations.html" },
+    { name: "Varanasi", description: "Spiritual city on the banks of Ganges", type: "Spiritual", page: "ReligousSpiritualtourism.html" },
+    { name: "Udaipur", description: "City of lakes and palaces", type: "Heritage", page: "HeritageHistoricalTourism.html" },
+    { name: "Rishikesh", description: "Yoga capital with adventure sports", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Andaman Islands", description: "Pristine beaches and coral reefs", type: "Beach", page: "TopDestinations.html" },
+    { name: "Ladakh", description: "High altitude desert with stunning landscapes", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Munnar", description: "Tea plantations and misty hills", type: "Hill Station", page: "TopDestinations.html" },
+    { name: "Hampi", description: "Ancient ruins and boulder landscapes", type: "Heritage", page: "HeritageHistoricalTourism.html" },
+    { name: "Rajasthan", description: "Land of kings with desert and forts", type: "Heritage", page: "HeritageHistoricalTourism.html" },
+    { name: "Manali", description: "Mountain paradise with adventure activities", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Amritsar", description: "Home to the Golden Temple", type: "Spiritual", page: "ReligousSpiritualtourism.html" }
+  ];
+  
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+  const searchResults = document.getElementById('searchResults');
+  
+  // Function to determine which page a search term should navigate to
+  function getDestinationPage(query) {
+    // First check if query matches a specific destination
+    const destinationMatch = destinations.find(dest => 
+      dest.name.toLowerCase() === query.toLowerCase()
+    );
+    
+    if (destinationMatch) {
+      return destinationMatch.page;
+    }
+    
+    // Then check for keyword matches in our mapping
+    const words = query.toLowerCase().split(' ');
+    for (const word of words) {
+      if (word.length > 2 && pageMapping[word]) { // Ignore short words
+        return pageMapping[word];
+      }
+    }
+    
+    // Check for multi-word phrases
+    for (const key in pageMapping) {
+      if (query.toLowerCase().includes(key)) {
+        return pageMapping[key];
+      }
+    }
+    
+    // Default to top destinations if no specific match
+    return "TopDestinations.html";
+  }
+  
+  // Function to display search results
+  function displaySearchResults(results) {
+    searchResults.innerHTML = '';
+    
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="no-results">No destinations found</div>';
+      searchResults.classList.add('active');
+      return;
+    }
+    
+    results.forEach(result => {
+      const resultItem = document.createElement('div');
+      resultItem.className = 'search-result-item';
+      resultItem.innerHTML = `
+        <div><span class="highlight">${result.name}</span> - ${result.type}</div>
+        <div>${result.description}</div>
+      `;
+      
+      // Add click event to navigate to destination page
+      resultItem.addEventListener('click', function() {
+        window.location.href = result.page;
+        searchResults.classList.remove('active');
+        searchInput.value = '';
+      });
+      
+      searchResults.appendChild(resultItem);
+    });
+    
+    searchResults.classList.add('active');
+  }
+  
+  // Function to perform search
+  function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    
+    if (query === '') {
+      searchResults.classList.remove('active');
+      return;
+    }
+    
+    // Filter destinations based on search query
+    const results = destinations.filter(dest => 
+      dest.name.toLowerCase().includes(query) || 
+      dest.description.toLowerCase().includes(query) ||
+      dest.type.toLowerCase().includes(query)
+    );
+    
+    // If specific search matches are found, show them
+    if (results.length > 0) {
+      displaySearchResults(results);
+    } else {
+      // Otherwise, determine the best page for the query and navigate directly
+      const bestPage = getDestinationPage(query);
+      
+      // Create a generic result to show before redirecting
+      const genericResult = {
+        name: `Search results for "${query}"`,
+        description: "Click to view relevant information",
+        type: "Search",
+        page: bestPage
+      };
+      
+      displaySearchResults([genericResult]);
+    }
+  }
+  
+  // Event listeners for search
+  searchButton.addEventListener('click', function() {
+    const query = searchInput.value.trim();
+    if (query) {
+      const page = getDestinationPage(query);
+      window.location.href = page;
+    }
+  });
+  
+  searchInput.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      const query = searchInput.value.trim();
+      if (query) {
+        const page = getDestinationPage(query);
+        window.location.href = page;
+      }
+    } else if (event.key === 'Escape') {
+      searchResults.classList.remove('active');
+    } else {
+      // Auto-search as typing (real-time search)
+      performSearch();
+    }
+  });
+  
+  // Close search results when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target) && !searchButton.contains(event.target)) {
+      searchResults.classList.remove('active');
+    }
+  });
+});
+    </script>
+</body>
+</html>
+                        

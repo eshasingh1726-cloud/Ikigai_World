@@ -1,0 +1,2923 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Explore India Together - Love Birds Tourism Packages</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="ikigai-common.css" rel="stylesheet" />
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+    }
+
+    /* Set up for sticky footer - main changes here */
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      background-color: rgba(19, 53, 38, 1);
+      color: #fff;
+      min-height: 100vh;
+      padding-bottom: 40px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background gradient instead of video */
+    .gradient-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0d3021, #4D6255, #68B777);
+      z-index: -2;
+    }
+
+    .gradient-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 48, 33, 0.7);
+      z-index: -1;
+    }
+
+    /* Normal navigation bar */
+    .navbar {
+      background-color: rgba(13, 48, 33, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+      padding: 15px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Updated navigation layout for better space utilization */
+    .navbar .container {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      /* Wider container for more space */
+      width: 100%;
+    }
+
+    /* Logo and tagline */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      flex-shrink: 1;
+      margin-right: 10px;
+      /* Reduced right margin */
+      min-width: 180px;
+      /* Ensure minimum width for logo visibility */
+    }
+
+    /* Logo styling with smaller size */
+    .logo-image {
+      width: 150px;
+      /* Slightly smaller logo */
+      height: auto;
+      position: relative;
+      overflow: visible;
+      background: none;
+      box-shadow: none;
+      border: none;
+    }
+
+    .logo-image img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease;
+      border: none;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+      object-fit: contain;
+    }
+
+    .logo-image:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Tagline with updated font to match logo */
+    .tagline {
+      color: rgba(190, 219, 211, 0.9);
+      font-size: 16px;
+      /* Slightly smaller font */
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: 0.8px;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+      white-space: normal;
+      /* Allow breaking on very small screens */
+      display: none;
+      /* Hide on smaller screens */
+    }
+
+    /* Navigation links - updated with box styling */
+    .nav-links {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px;
+      /* Reduced from 6px */
+      margin-right: 5px;
+    }
+
+    .nav-links a {
+      color: rgba(190, 219, 211, 0.8);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 8px;
+      /* Reduced horizontal padding */
+      transition: all 0.3s;
+      border-radius: 6px;
+      white-space: nowrap;
+      border: 1px solid rgba(104, 183, 119, 0.3);
+      /* Add border to create box effect */
+      background-color: rgba(13, 48, 33, 0.4);
+      /* Slightly darker background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      /* Fixed height for uniform appearance */
+      font-size: 14px;
+      /* Slightly smaller font */
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #bedbd3;
+      background-color: rgba(104, 183, 119, 0.3);
+      border-color: rgba(104, 183, 119, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Expanded search bar */
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      /* Increased from 500px to 650px */
+      margin: 0 10px;
+      flex-grow: 1;
+      /* Allow search to use available space */
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 8px 16px;
+      padding-right: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(77, 98, 85, 0.5);
+      background: rgba(190, 219, 211, 0.1);
+      color: #bedbd3;
+      outline: none;
+      transition: all 0.3s;
+      height: 40px;
+      /* Match height with nav links */
+    }
+
+    .search-container input::placeholder {
+      color: rgba(190, 219, 211, 0.6);
+    }
+
+    .search-container input:focus {
+      background: rgba(190, 219, 211, 0.2);
+      box-shadow: 0 0 10px rgba(104, 183, 119, 0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(190, 219, 211, 0.7);
+      cursor: pointer;
+    }
+
+    /* Search results dropdown */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(13, 48, 33, 0.95);
+      border-radius: 8px;
+      margin-top: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.active {
+      display: block;
+    }
+
+    /* Action buttons - improved alignment and added sign up button */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      /* Reduced gap */
+    }
+
+    .nav-actions button {
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 8px 12px;
+      /* Reduced padding */
+      border-radius: 6px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 40px;
+      /* Match height with other elements */
+      font-size: 14px;
+      /* Slightly smaller font */
+    }
+
+    .nav-actions button:first-child {
+      background: transparent;
+      color: #bedbd3;
+      border: 1px solid rgba(190, 219, 211, 0.3);
+    }
+
+    .nav-actions button:first-child:hover {
+      border-color: rgba(190, 219, 211, 0.5);
+      background: rgba(77, 98, 85, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .nav-actions button:last-child {
+      background: rgba(104, 183, 119, 0.3);
+      color: #bedbd3;
+      border: 1px solid rgba(104, 183, 119, 0.5);
+    }
+
+    .nav-actions button:last-child:hover {
+      background: rgba(104, 183, 119, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Show tagline on larger screens */
+    @media (min-width: 1200px) {
+      .tagline {
+        display: block;
+      }
+
+      .logo-image {
+        width: 180px;
+        /* Restore original logo size */
+      }
+
+      .nav-links a,
+      .nav-actions button {
+        font-size: 16px;
+        /* Restore original font size */
+      }
+    }
+
+    /* Star animations */
+    .star {
+      position: fixed;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #ffffff;
+      animation: twinkle 5s infinite ease-in-out;
+      z-index: -1;
+    }
+
+    .circle {
+      position: fixed;
+      background: #68B777;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 8s infinite ease-in-out alternate;
+      z-index: -1;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(10px, -10px);
+      }
+
+      100% {
+        transform: translate(-10px, 10px);
+      }
+    }
+
+    /* Normal navigation bar */
+    .navbar {
+      background-color: rgba(13, 48, 33, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+      padding: 15px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Updated navigation layout for better space utilization */
+    .navbar .container {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      /* Wider container for more space */
+      width: 100%;
+    }
+
+    /* Logo and tagline */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      flex-shrink: 1;
+      margin-right: 10px;
+      /* Reduced right margin */
+      min-width: 180px;
+      /* Ensure minimum width for logo visibility */
+    }
+
+    /* Logo styling with smaller size */
+    .logo-image {
+      width: 150px;
+      /* Slightly smaller logo */
+      height: auto;
+      position: relative;
+      overflow: visible;
+      background: none;
+      box-shadow: none;
+      border: none;
+    }
+
+    .logo-image img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease;
+      border: none;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+      object-fit: contain;
+    }
+
+    .logo-image:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Tagline with updated font to match logo */
+    .tagline {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 16px;
+      /* Slightly smaller font */
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: 0.8px;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+      white-space: normal;
+      /* Allow breaking on very small screens */
+      display: none;
+      /* Hide on smaller screens */
+    }
+
+    /* Navigation links - updated with box styling */
+    .nav-links {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px;
+      /* Reduced from 6px */
+      margin-right: 5px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 8px;
+      /* Reduced horizontal padding */
+      transition: all 0.3s;
+      border-radius: 6px;
+      white-space: nowrap;
+      border: 1px solid rgba(104, 183, 119, 0.3);
+      /* Add border to create box effect */
+      background-color: rgba(13, 48, 33, 0.4);
+      /* Slightly darker background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      /* Fixed height for uniform appearance */
+      font-size: 14px;
+      /* Slightly smaller font */
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #fff;
+      background-color: rgba(104, 183, 119, 0.3);
+      border-color: rgba(104, 183, 119, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Expanded search bar */
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      /* Increased from 500px to 650px */
+      margin: 0 10px;
+      flex-grow: 1;
+      /* Allow search to use available space */
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 8px 16px;
+      padding-right: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(77, 98, 85, 0.5);
+      background: rgba(190, 219, 211, 0.1);
+      color: #fff;
+      outline: none;
+      transition: all 0.3s;
+      height: 40px;
+      /* Match height with nav links */
+    }
+
+    .search-container input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .search-container input:focus {
+      background: rgba(190, 219, 211, 0.2);
+      box-shadow: 0 0 10px rgba(104, 183, 119, 0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+    }
+
+    /* Search results dropdown */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(13, 48, 33, 0.95);
+      border-radius: 8px;
+      margin-top: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.active {
+      display: block;
+    }
+
+    .search-result-item {
+      padding: 10px 15px;
+      border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .search-result-item:hover {
+      background: rgba(104, 183, 119, 0.2);
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+
+    .highlight {
+      color: #68B777;
+      font-weight: bold;
+    }
+
+    .no-results {
+      padding: 15px;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* Action buttons - improved alignment and added sign up button */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      /* Reduced gap */
+    }
+
+    .nav-actions button {
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 8px 12px;
+      /* Reduced padding */
+      border-radius: 6px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 40px;
+      /* Match height with other elements */
+      font-size: 14px;
+      /* Slightly smaller font */
+    }
+
+    .nav-actions button:first-child {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .nav-actions button:first-child:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(77, 98, 85, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .nav-actions button:last-child {
+      background: rgba(104, 183, 119, 0.3);
+      color: #fff;
+      border: 1px solid rgba(104, 183, 119, 0.5);
+    }
+
+    .nav-actions button:last-child:hover {
+      background: rgba(104, 183, 119, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Show tagline on larger screens */
+    @media (min-width: 1200px) {
+      .tagline {
+        display: block;
+      }
+
+      .logo-image {
+        width: 180px;
+        /* Restore original logo size */
+      }
+
+      .nav-links a,
+      .nav-actions button {
+        font-size: 16px;
+        /* Restore original font size */
+      }
+    }
+
+    /* Medium screens adjustments */
+    @media (max-width: 1200px) and (min-width: 992px) {
+      .search-container {
+        max-width: 450px;
+        /* Smaller search bar on medium screens */
+      }
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background-image: linear-gradient(rgba(13, 48, 33, 0.7), rgba(13, 48, 33, 0.7)), url('/api/placeholder/1920/1080');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 150px 0;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-section p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 20px auto;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: #68B777;
+      border-color: #68B777;
+      color: #0d3021;
+      font-weight: 600;
+      padding: 10px 25px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #5aa068;
+      border-color: #5aa068;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Filter Buttons */
+    .filter-btn {
+      margin: 5px;
+      background-color: rgba(13, 48, 33, 0.7);
+      color: #fff;
+      border: 1px solid #68B777;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background-color: #68B777;
+      color: #0d3021;
+      transform: translateY(-2px);
+    }
+
+    /* Package Cards */
+    .package-card {
+      background-color: rgba(13, 48, 33, 0.6);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      height: 100%;
+      border: 1px solid rgba(104, 183, 119, 0.2);
+    }
+
+    .package-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+      border-color: rgba(104, 183, 119, 0.5);
+    }
+
+    .card-img-container {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+
+    .card-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .package-card:hover .card-img-container img {
+      transform: scale(1.1);
+    }
+
+    .card-body {
+      padding: 20px;
+      color: #fff;
+      background-color: rgba(13, 48, 33, 0.9);
+    }
+
+    /* Package Titles */
+    .package-title {
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    /* Pricing */
+    .price {
+      color: #68B777;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1rem;
+      margin-left: 5px;
+    }
+
+    /* Card Text */
+    .card-text {
+      color: #bedbd3;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    /* Icons in cards */
+    .fas {
+      color: #68B777;
+    }
+
+    .text-secondary {
+      color: #68B777 !important;
+    }
+
+    /* Badges for Features */
+    .badge {
+      background-color: #183e2d;
+      color: #fff;
+      border-radius: 12px;
+      padding: 5px 12px;
+      font-size: 0.875rem;
+      margin-right: 5px;
+      display: inline-block;
+      border: 1px solid rgba(104, 183, 119, 0.3);
+    }
+
+    .bg-success {
+      background-color: #68B777 !important;
+      color: #0d3021;
+    }
+
+    /* Feature Icons */
+    .feature-icon {
+      font-size: 3rem;
+      color: #68B777;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .col-md-4:hover .feature-icon {
+      transform: scale(1.2);
+      color: #7cc48b;
+    }
+
+    /* Why Choose Us section */
+    .highlight {
+      background-color: rgba(13, 48, 33, 0.7);
+      padding: 60px 0;
+      margin: 40px 0;
+      border-top: 1px solid rgba(104, 183, 119, 0.3);
+      border-bottom: 1px solid rgba(104, 183, 119, 0.3);
+    }
+
+    /* Contact Section */
+    .social-icon {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: #bedbd3;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      color: #68B777;
+      transform: translateY(-3px);
+    }
+
+    /* Contact form card */
+    .card {
+      background-color: rgba(13, 48, 33, 0.8);
+      border: 1px solid rgba(104, 183, 119, 0.3);
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      color: #fff;
+    }
+
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(104, 183, 119, 0.3);
+      color: #fff;
+      padding: 12px;
+    }
+
+    .form-control:focus {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-color: #68B777;
+      color: #fff;
+      box-shadow: 0 0 0 0.25rem rgba(104, 183, 119, 0.25);
+    }
+
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Footer */
+    footer {
+      background-color: rgba(13, 48, 33, 0.9);
+      color: #fff;
+      padding: 50px 0 20px;
+      border-top: 1px solid rgba(104, 183, 119, 0.3);
+      margin-top: 40px;
+    }
+
+    .footer-links h5 {
+      color: #68B777;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      color: #bedbd3;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #68B777;
+      padding-left: 5px;
+    }
+
+    /* Star animations */
+    .star {
+      position: fixed;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #ffffff;
+      animation: twinkle 5s infinite ease-in-out;
+      z-index: -1;
+    }
+
+    .circle {
+      position: fixed;
+      background: #68B777;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 8s infinite ease-in-out alternate;
+      z-index: -1;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(10px, -10px);
+      }
+
+      100% {
+        transform: translate(-10px, 10px);
+      }
+    }
+
+
+    /* Section Headers */
+    section h2 {
+      position: relative;
+      display: inline-block;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    section h2:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      width: 80px;
+      height: 3px;
+      background: #68B777;
+      transform: translateX(-50%);
+    }
+
+    /* Lead text */
+    .lead {
+      color: #bedbd3;
+      font-weight: 300;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .book-btn {
+      padding: 10px 20px;
+      background: rgba(104, 183, 119, 0.5);
+      color: #bedbd3;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .book-btn:hover {
+      background: rgba(104, 183, 119, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeIn {
+
+      0%,
+      100% {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+
+    #loadMoreBtn {
+      background-color: rgba(104, 183, 119, 0.5);
+      color: #bedbd3;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    #loadMoreBtn:hover {
+      background-color: rgba(104, 183, 119, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      color: white;
+    }
+  </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("YOUR_EMAILJS_USER_ID");
+    })();
+  </script>
+</head>
+
+<body>
+  <!-- Gradient Background instead of video -->
+  <div class="gradient-background"></div>
+  <div class="gradient-overlay"></div>
+  <!-- Star and circle decorations -->
+  <script>
+    function createStarsAndCircles() {
+      // Create stars
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+
+        // Random size
+        const size = Math.random() * 3 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+
+        // Random position
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+
+        // Random animation delay
+        star.style.animationDelay = `${Math.random() * 5}s`;
+
+        document.body.appendChild(star);
+      }
+
+      // Create circles
+      const colors = ['#68B777', '#8aac80', '#4D6255'];
+      for (let i = 0; i < 20; i++) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+
+        // Random size
+        const size = Math.random() * 30 + 10;
+        circle.style.width = `${size}px`;
+        circle.style.height = `${size}px`;
+
+        // Random position
+        circle.style.top = `${Math.random() * 100}%`;
+        circle.style.left = `${Math.random() * 100}%`;
+
+        // Random color
+        circle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        // Random animation delay
+        circle.style.animationDelay = `${Math.random() * 5}s`;
+
+        document.body.appendChild(circle);
+      }
+    }
+    window.onload = createStarsAndCircles;
+  </script>
+  <!-- Updated Navigation Bar with Search Functionality -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <!-- Logo and Tagline - Reduced width and margins -->
+      <div class="logo-container">
+        <div class="logo-image">
+          <a href="home2.html"><img alt="Ikigai World Logo" src="New.png" /></a>
+        </div>
+        <div class="tagline-container">
+          <p class="tagline">Unveil the Wonders of India with Ikigai World</p>
+        </div>
+      </div>
+      <!-- Toggle Button for Mobile -->
+      <button class="navbar-toggler" data-bs-target="#navbarContent" data-bs-toggle="collapse" type="button">
+        <i class="fas fa-bars text-light"></i>
+      </button>
+      <!-- Nav Links and Actions -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <div class="nav-links ms-auto">
+          <a href="Destination.html">Destinations</a>
+          <a href="TravelGuide.html">Travel Guides</a>
+          <a href="about-us-page.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <!-- Updated Search Bar with Wider Width -->
+        <div class="search-container">
+          <input id="searchInput" placeholder="Search destinations..." type="text" />
+          <span class="search-icon" id="searchButton"><i class="fas fa-search"></i></span>
+          <!-- Search Results Container -->
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <!-- Action Buttons -->
+        <div class="nav-actions">
+          <button>Log In</button>
+          <button>Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Background Elements -->
+  <div class="gradient-background"></div>
+  <div class="gradient-overlay"></div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-mountain"></i> Explore India Together
+      </a>
+      <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#packages">Packages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Why Choose Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="py-5" id="packages">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="mb-3">Our Couple Tour Packages</h2>
+        <p class="lead">Romance meets adventure – tailor-made tours for couples</p>
+        <p class="lead">Discover extraordinary couple packages crafted to create memories that last a lifetime.
+          Experience
+          India's most romantic destinations with your loved one.</p>
+        <div class="d-flex justify-content-center flex-wrap my-4">
+          <button class="btn filter-btn active" data-filter="all">All Packages</button>
+          <button class="btn filter-btn" data-filter="adventure">Adventure</button>
+          <button class="btn filter-btn" data-filter="hillstation">Hill Stations</button>
+          <button class="btn filter-btn" data-filter="historical">Historical</button>
+          <button class="btn filter-btn" data-filter="beach">Beaches</button>
+          <button class="btn filter-btn" data-filter="urban">Urban Areas</button>
+        </div>
+      </div>
+      <div class="row g-4" id="packageContainer">
+        <!-- Package 1 -->
+        <div class="col-md-6 col-lg-4 package-item" data-category="adventure">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Rishikesh, Uttarakhand" class="card-img-top" src="rishikeshc.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Rishikesh Riverside Retreat(Rishikesh, Uttarakhand)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹24999</span>
+                  <span class="old-price">₹29999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Experience the thrill of white water rafting, private yoga sessions by the Ganges,
+                and
+                romantic evening Ganga Aarti views.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Rishikesh Riverside Retreat', 24999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="hillstation">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Kodaikanal Misty Mountains" class="card-img-top" src="kodinal.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Kodaikanal Misty Mountains (Kodaikanal, Tamil Nadu)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹19,999</span>
+                  <span class="old-price">₹23,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Wander through misty pine forests, boat on the star-shaped lake, and enjoy cozy
+                evenings by the fireplace.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Kodaikanal Misty Mountains', 19999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="historical">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Mathura Divine Connection" class="card-img-top" src="mathura.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Mathura Divine Connection (Mathura, Uttar Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹18,999</span>
+                  <span class="old-price">₹22,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Experience the spiritual center of Lord Krishna's birthplace, with ancient temples
+                and
+                ghats along the sacred Yamuna river.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Mathura Divine Connection', 18999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="beach">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Gokarna Secret Beaches" class="card-img-top" src="Gokarna.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Gokarna Secret Beaches (Gokarna, Karnataka)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹18,999</span>
+                  <span class="old-price">₹22,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Discover secluded beaches, sunset cliff views, and bohemian vibes in this temple town
+                by the Arabian Sea.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Gokarna Secret Beaches', 18999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="urban">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Mysore Royal Retreat" class="card-img-top" src="mysore.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Mysore Royal Retreat (Mysore, Karnataka)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹17,999</span>
+                  <span class="old-price">₹21,999</span>
+                </div>
+                <span class="badge bg-success">18% OFF</span>
+              </div>
+              <p class="card-text">Stay in heritage properties, witness the illuminated palace, and indulge in royal
+                Mysore cuisine and silk shopping.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>3 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Mysore Royal Retreat)', 17999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- Package 2 -->
+        <div class="col-md-6 col-lg-4 package-item" data-category="adventure">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Dandeli Wildlife Escape" class="card-img-top" src="dandeli.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Dandeli Wildlife Escape, (Dandeli, Karnataka)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹22,999</span>
+                  <span class="old-price">₹26,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Navigate the rapids of Kali River, spot exotic birds, and enjoy secluded forest stays
+                in this pristine jungle paradise.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Dandeli Wildlife Escape', 22999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="hillstation">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Kalimpong Himalayan Hideaway" class="card-img-top" src="Kalimpong.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Kalimpong Himalayan Hideaway (Kalimpong, West Bengal)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹21,999</span>
+                  <span class="old-price">₹25,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Enjoy panoramic Himalayan views, visit ancient monasteries, and stroll through flower
+                nurseries in this quaint hill town.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Kalimpong Himalayan Hideaway', 21999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="historical">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Amber Fort Royal Experience" class="card-img-top" src="Amber Fort.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Amber Fort Royal Experience (Amber (Amer), Rajasthan)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹24,999</span>
+                  <span class="old-price">₹29,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Live like royalty in Rajasthan with a private tour of the magnificent Amber Fort,
+                elephant rides, and authentic Rajasthani cuisine.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Amber Fort Royal Experience', 24999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="beach">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Diu Portuguese Romance" class="card-img-top" src="Diu.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Diu Portuguese Romance (Diu, Daman and Diu)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹20,999</span>
+                  <span class="old-price">₹24,999</span>
+                </div>
+                <span class="badge bg-success">16% OFF</span>
+              </div>
+              <p class="card-text">Explore Portuguese architecture, cycle along palm-fringed beaches, and enjoy seafood
+                dinners under the stars.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Diu Portuguese Romance', 20999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="urban">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Hyderabad Nizami Splendor" class="card-img-top" src="Hyderabad.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Hyderabad Nizami Splendor (Hyderabad, Telangana)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹19,999</span>
+                  <span class="old-price">₹23,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Explore the city of pearls with its magnificent Charminar, Golconda Fort, and indulge
+                in the royal Hyderabadi cuisine.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Hyderabad Nizami Splendor', 23999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- Package 3 -->
+        <div class="col-md-6 col-lg-4 package-item" data-category="adventure">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Spiti Valley Expedition" class="card-img-top" src="Spiti Valley.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Spiti Valley Expedition, (Spiti Valley, Himachal Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹32,499</span>
+                  <span class="old-price">₹38,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Journey through moonscapes, ancient monasteries, and starlit skies in this
+                high-altitude desert romance.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>7 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Spiti Valley Expedition', 32999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="hillstation">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Chaukori Sunset Paradise" class="card-img-top" src="Chaukori.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Chaukori Sunset Paradise (Chaukori, Uttarakhand)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹23,999</span>
+                  <span class="old-price">₹28,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Wake up to Panchachuli peak views, experience local Kumaoni culture, and enjoy the
+                most
+                romantic sunsets in Uttarakhand.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Chaukori Sunset Paradise', 23999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="beach">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Marari Beach Tranquility" class="card-img-top" src="Marari Beach.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Marari Beach Tranquility (Marari Beach, Kerala")</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹29,999</span>
+                  <span class="old-price">₹35,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Unwind in a traditional Kerala-style cottage, enjoy Ayurvedic massages, and
+                experience
+                authentic backwater village life.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Marari Beach Tranquility', 29999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="historical">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Rameshwaram Spiritual Journey" class="card-img-top" src="Rameshwaram.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Rameshwaram Spiritual Journey (Rameshwaram, Tamil Nadu)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹21,999</span>
+                  <span class="old-price">₹25,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Embark on a spiritual odyssey to one of India's holiest sites, with temple visits,
+                sacred bathing rituals, and pristine beaches.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Rameshwaram Spiritual Journey)', 21999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="urban">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Mumbai Coastal Luxury" class="card-img-top" src="Mumbai Coastal.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Mumbai Coastal Luxury (Mumbai, Maharashtra)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹28,999</span>
+                  <span class="old-price">₹34,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Experience luxury stays overlooking the Arabian Sea, sunset cruises at Marine Drive,
+                and vibrant nightlife in India's city of dreams.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Mumbai Coastal Luxury', 28999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- Package 4 -->
+        <div class="col-md-6 col-lg-4 package-item" data-category="adventure">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Meghalaya Living Root Bridges" class="card-img-top" src="Meghalaya.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Meghalaya Living Root Bridges, (Cherrapunji &amp; Mawlynnong, Meghalaya)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹26,999</span>
+                  <span class="old-price">₹31,999</span>
+                </div>
+                <span class="badge bg-success">16% OFF</span>
+              </div>
+              <p class="card-text">Discover the magical living root bridges, crystal-clear waters, and Asia's cleanest
+                village together.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>6 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Meghalaya Living Root Bridges', 26999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="hillstation">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Coonoor Tea Estate Retreat" class="card-img-top" src="Coonoor.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title"> Coonoor Tea Estate Retreat (Coonoor, Tamil Nadu)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹25,999</span>
+                  <span class="old-price">₹30,999</span>
+                </div>
+                <span class="badge bg-success">16% OFF</span>
+              </div>
+              <p class="card-text">Stay in a colonial bungalow surrounded by emerald tea plantations, ride the Nilgiri
+                Mountain Railway, and enjoy high tea with valley views..</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Coonoor Tea Estate Retreat', 25999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="historical">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Hampi Ancient Ruins Exploration" class="card-img-top" src="Hampi.jpeg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Hampi Ancient Ruins Exploration (Hampi, Karnataka)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹23,999</span>
+                  <span class="old-price">₹28,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Discover the ancient ruins of the Vijayanagara Empire, with boulder-strewn landscapes
+                and magnificent temple complexes.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Hampi Ancient Ruins Exploration', 23999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="beach">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Bangaram Island Escape" class="card-img-top" src="Bangaram Island.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Bangaram Island Escape (Bangaram Island, Lakshadweep)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹45,999</span>
+                  <span class="old-price">₹53,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Experience crystal-clear lagoons, vibrant coral reefs, and pristine white beaches on
+                this exclusive island getaway.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>6 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Bangaram Island Escape', 45999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="urban">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Delhi Heritage Walk" class="card-img-top" src="Delhi Heritage.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Delhi Heritage Walk (Delhi, NCR)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹22,999</span>
+                  <span class="old-price">₹26,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Walk through centuries of history, from ancient monuments to colonial architecture,
+                with luxury accommodations and fine dining experiences.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Delhi Heritage Walk', 22999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- Package 5 -->
+        <div class="col-md-6 col-lg-4 package-item" data-category="adventure">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Kamshet Paragliding Adventure" class="card-img-top" src="Kamshet Paragliding.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Kamshet Paragliding Adventure, (Kamshet, Maharashtra)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹23,999</span>
+                  <span class="old-price">₹29,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Soar above the Western Ghats with tandem paragliding experiences, lakeside camping,
+                and
+                rustic hill retreats.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Kamshet Paragliding Adventure', 23999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="hillstation">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Panikhar Alpine Experience" class="card-img-top" src="Panikhar.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Panikhar Alpine Experience (Panikhar, Ladakh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹29,999</span>
+                  <span class="old-price">₹35,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Discover the hidden alpine region of Ladakh with snow-capped peaks, lush meadows, and
+                authentic Ladakhi culture.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>6 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Panikhar Alpine Experience', 29999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="historical">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Nidhivan Mystical Experience" class="card-img-top" src="Nidhivan.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Nidhivan Mystical Experience (Vrindavan, Uttar Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹20,999</span>
+                  <span class="old-price">₹24,999</span>
+                </div>
+                <span class="badge bg-success">16% OFF</span>
+              </div>
+              <p class="card-text">Explore the mystical Nidhivan where legends say Lord Krishna performs his celestial
+                dance each night, along with visits to ancient temples and spiritual sites.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Nidhivan Mystical Experience', 20999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="beach">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Radhanagar Beach Paradise" class="card-img-top" src="Radhanagar Beach.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Radhanagar Beach Paradise(Radhanagar Beach, Havelock Island)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹39,999</span>
+                  <span class="old-price">₹46,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Experience one of Asia's best beaches with pristine white sands, turquoise waters,
+                and
+                spectacular sunsets in the Andamans.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>6 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Radhanagar Beach Paradise', 39999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="urban">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Bhopal Lakes &amp; Heritage" class="card-img-top" src="Bhopal Lakes.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Bhopal Lakes &amp; Heritage (Bhopal, Madhya Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹18,999</span>
+                  <span class="old-price">₹22,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Experience the city of lakes with its stunning waterfront, historic palaces, and
+                nearby
+                UNESCO World Heritage sites.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Bhopal Lakes &amp; Heritage', 18999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- Package 6 -->
+        <div class="col-md-6 col-lg-4 package-item" data-category="adventure">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Tawang Monastery Discovery" class="card-img-top" src="Tawang Monastery.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Tawang Monastery Discovery, (Tawang, Arunachal Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹35,499</span>
+                  <span class="old-price">₹42,999</span>
+                </div>
+                <span class="badge bg-success">16% OFF</span>
+              </div>
+              <p class="card-text">Experience the majestic Himalayan views, ancient Buddhist monasteries, and pristine
+                mountain lakes in this remote paradise.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Tawang Monastery Discovery', 35999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="hillstation">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Pelling Kanchenjunga Views" class="card-img-top" src="Pelling Kanchenjunga.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Pelling Kanchenjunga Views (Pelling, Sikkim)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹37,999</span>
+                  <span class="old-price">₹32,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Explore the hidden tribal villages and breathtaking landscapes of Himachal Pradesh.
+              </p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Pelling Kanchenjunga Views', 37999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="historical">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Mandu Royal Heritage Tour" class="card-img-top" src="Mandu.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Mandu Royal Heritage Tour (Mandu, Madhya Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹22,999</span>
+                  <span class="old-price">₹27,999</span>
+                </div>
+                <span class="badge bg-success">18% OFF</span>
+              </div>
+              <p class="card-text">Discover the ancient city of Mandu with its Afghan architectural marvels, majestic
+                palaces, and the romantic tale of Baz Bahadur and Roopmati set among picturesque ruins.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>5 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Mandu Royal Heritage Tour', 22999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="beach">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Kalingapatnam Beach Retreat" class="card-img-top" src="Kalingapatnam Beach.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Kalingapatnam Beach Retreat (Kalingapatnam Beach, Andhra Pradesh)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹21,999</span>
+                  <span class="old-price">₹25,999</span>
+                </div>
+                <span class="badge bg-success">15% OFF</span>
+              </div>
+              <p class="card-text">Discover this hidden gem on the Andhra coast with its historic lighthouse, pristine
+                shoreline, and authentic coastal cuisine.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Kalingapatnam Beach Retreat', 21999)">Book
+                    Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 package-item" data-category="urban">
+          <div class="package-card">
+            <div class="card-img-container">
+              <img alt="Nagpur Orange Country" class="card-img-top" src="Nagpur.jpg" />
+            </div>
+            <div class="card-body">
+              <h5 class="package-title">Nagpur Orange Country (Nagpur, Maharashtra)</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="price">₹19,999</span>
+                  <span class="old-price">₹23,999</span>
+                </div>
+                <span class="badge bg-success">17% OFF</span>
+              </div>
+              <p class="card-text">Discover the heart of India with its vibrant culture, wildlife sanctuaries, and
+                famous
+                orange orchards in this central metropolis.</p>
+              <div class="d-flex justify-content-between">
+                <span><i class="fas fa-calendar-alt me-2"></i>4 Days</span>
+                <span><i class="fas fa-users me-2"></i>2 People</span>
+                <div class="button-container">
+                  <button class="book-btn" onclick="initiatePayment('Nagpur Orange Country', 19999)">Book Now</button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Why Choose Us Section -->
+  <section class="highlight py-5" id="about">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="mb-3">Why Choose Our Couple Packages</h2>
+        <p class="lead">Experience the difference with Love &amp; Wander</p>
+      </div>
+      <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-4 text-center">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4 class="mb-3">Like-minded Travelers</h4>
+          <p>Each package is thoughtfully designed with couples in mind, focusing on romantic experiences and intimate
+            settings.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-md-4 text-center">
+          <div class="feature-icon">
+            <i class="fas fa-rupee-sign"></i>
+          </div>
+          <h4 class="mb-3">Best Value For Money</h4>
+          <p>Enjoy premium experiences at affordable prices. Our group packages offer significant savings without
+            compromising on quality.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-md-4 text-center">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h4 class="mb-3">Safety First Approach</h4>
+          <p>We include scenic viewpoints and hidden gems perfect for creating memorable photographs together</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="col-md-4 text-center">
+          <div class="feature-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h4 class="mb-3">Hidden Gems Access</h4>
+          <p>Enjoy dedicated support, luxury accommodations, and personalized experiences throughout your journey.</p>
+        </div>
+        <!-- Contact Us Section -->
+        <section class="py-5" id="contact">
+          <div class="container">
+            <div class="text-center mb-5">
+              <h2 class="mb-3">Contact Us</h2>
+              <p class="lead">Have questions? We're here to help plan your perfect group adventure</p>
+            </div>
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body p-4">
+                    <h3 class="mb-4">Send Us a Message</h3>
+                    <form>
+                      <div class="mb-3">
+                        <label class="form-label" for="name">Your Name</label>
+                        <input class="form-control" id="name" placeholder="Enter your name" type="text" />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input class="form-control" id="email" placeholder="Enter your email" type="email" />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input class="form-control" id="phone" placeholder="Enter your phone number" type="tel" />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="package">Interested Package</label>
+                        <select class="form-control" id="package">
+                          <option selected="">Choose a package...</option>
+                          <option>Himachal Tribal Circuit</option>
+                          <option>Manali Leh Ladakh Bike Trip</option>
+                          <option>Kashmir Group Package</option>
+                          <option>Golden Triangle Group Tour</option>
+                          <option>Kerala Group Tour Package</option>
+                          <option>Darjeeling Gangtok Tour</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="message">Your Message</label>
+                        <textarea class="form-control" id="message" placeholder="Enter your message"
+                          rows="4"></textarea>
+                      </div>
+                      <button class="btn btn-primary w-100" type="submit">Send Message</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body p-4">
+                    <h3 class="mb-4">Get in Touch</h3>
+                    <div class="mb-4">
+                      <h5 class="text-secondary mb-3"><i class="fas fa-map-marker-alt me-2"></i> Our Location</h5>
+                      <p>AU- Block (Outer Ring Road)Pitampura<br />New Delhi - 110034, India</p>
+                    </div>
+                    <div class="mb-4">
+                      <h5 class="text-secondary mb-3"><i class="fas fa-phone-alt me-2"></i> Call Us</h5>
+                      <p>+91 98765 43210<br />+91 11 2345 6789</p>
+                    </div>
+                    <div class="mb-4">
+                      <h5 class="text-secondary mb-3"><i class="fas fa-envelope me-2"></i> Email Us</h5>
+                      <p>info@exploreindia.com<br />bookings@exploreindia.com</p>
+                    </div>
+                    <div class="mb-4">
+                      <h5 class="text-secondary mb-3"><i class="fas fa-clock me-2"></i> Office Hours</h5>
+                      <p>Monday - Saturday: 9:00 AM - 6:00 PM<br />Sunday: Closed</p>
+                    </div>
+                    <div class="mt-4">
+                      <h5 class="text-secondary mb-3">Follow Us</h5>
+                      <a class="social-icon" href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a class="social-icon" href="#"><i class="fab fa-instagram"></i></a>
+                      <a class="social-icon" href="#"><i class="fab fa-twitter"></i></a>
+                      <a class="social-icon" href="#"><i class="fab fa-youtube"></i></a>
+                      <a class="social-icon" href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Footer -->
+        <footer>
+          <div class="container">
+            <div class="row g-4">
+              <div class="col-lg-4 mb-4">
+                <h5 class="mb-3">About Explore India Together</h5>
+                <p>We are a premier group tour operator specializing in authentic Indian travel experiences. Our mission
+                  is to connect travelers with the rich culture, stunning landscapes, and hidden gems of India.</p>
+                <div class="mt-3">
+                  <a class="social-icon" href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a class="social-icon" href="#"><i class="fab fa-instagram"></i></a>
+                  <a class="social-icon" href="#"><i class="fab fa-twitter"></i></a>
+                  <a class="social-icon" href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+              <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled footer-links">
+                  <li class="mb-2"><a href="#home">Home</a></li>
+                  <li class="mb-2"><a href="#packages">Packages</a></li>
+                  <li class="mb-2"><a href="#about">Why Choose Us</a></li>
+                  <li class="mb-2"><a href="#contact">Contact</a></li>
+                </ul>
+              </div>
+              <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <h5>Popular Tours</h5>
+                <ul class="list-unstyled footer-links">
+                  <li class="mb-2"><a href="#">Kashmir Tour</a></li>
+                  <li class="mb-2"><a href="#">Kerala Backwaters</a></li>
+                  <li class="mb-2"><a href="#">Ladakh Adventure</a></li>
+                  <li class="mb-2"><a href="#">Golden Triangle</a></li>
+                  <li class="mb-2"><a href="#">Himachal Exploration</a></li>
+                </ul>
+              </div>
+              <div class="col-md-4 col-lg-4 mb-4">
+                <h5>Newsletter</h5>
+                <p>Subscribe to our newsletter for exclusive deals and travel tips.</p>
+                <div class="input-group mb-3">
+                  <input class="form-control" placeholder="Your email address" type="email" />
+                  <button class="btn btn-primary" type="button">Subscribe</button>
+                </div>
+              </div>
+            </div>
+            <hr class="mt-4 mb-3" style="border-color: rgba(104, 183, 119, 0.3);" />
+            <div class="text-center">
+              <p class="mb-0">© 2025 Explore India Together. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            // Package data
+            const packagesData = [
+              // Adventure
+              {
+                id: 1,
+                name: "Rishikesh Riverside Retreat",
+                location: "Rishikesh, Uttarakhand",
+                description: "Experience the thrill of white water rafting, private yoga sessions by the Ganges, and romantic evening Ganga Aarti views.",
+                price: 24999,
+                oldPrice: 29999,
+                discount: "17% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "adventure",
+                features: ["Luxury riverside camping", "Couples spa", "Adventure activities"]
+              },
+              {
+                id: 2,
+                name: "Dandeli Wildlife Escape",
+                location: "Dandeli, Karnataka",
+                description: "Navigate the rapids of Kali River, spot exotic birds, and enjoy secluded forest stays in this pristine jungle paradise.",
+                price: 22999,
+                oldPrice: 26999,
+                discount: "15% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "adventure",
+                features: ["Wildlife safari", "River rafting", "Treetop dining"]
+              },
+              {
+                id: 3,
+                name: "Spiti Valley Expedition",
+                location: "Spiti Valley, Himachal Pradesh",
+                description: "Journey through moonscapes, ancient monasteries, and starlit skies in this high-altitude desert romance.",
+                price: 32499,
+                oldPrice: 38999,
+                discount: "15% OFF",
+                duration: "7 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "adventure",
+                features: ["Monastery visits", "Stargazing", "4x4 excursions"]
+              },
+              {
+                id: 4,
+                name: "Meghalaya Living Root Bridges",
+                location: "Cherrapunji & Mawlynnong, Meghalaya",
+                description: "Discover the magical living root bridges, crystal-clear waters, and Asia's cleanest village together.",
+                price: 26999,
+                oldPrice: 31999,
+                discount: "16% OFF",
+                duration: "6 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "adventure",
+                features: ["Waterfall visits", "Village homestay", "Hiking trails"]
+              },
+              {
+                id: 5,
+                name: "Kamshet Paragliding Adventure",
+                location: "Kamshet, Maharashtra",
+                description: "Soar above the Western Ghats with tandem paragliding experiences, lakeside camping, and rustic hill retreats.",
+                price: 23999,
+                oldPrice: 28999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "adventure",
+                features: ["Paragliding", "Lakeside camping", "Hiking"]
+              },
+              {
+                id: 6,
+                name: "Tawang Monastery Discovery",
+                location: "Tawang, Arunachal Pradesh",
+                description: "Experience the majestic Himalayan views, ancient Buddhist monasteries, and pristine mountain lakes in this remote paradise.",
+                price: 35999,
+                oldPrice: 42999,
+                discount: "16% OFF",
+                duration: "6 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "adventure",
+                features: ["Monastery tour", "Lake visits", "Mountain views"]
+              },
+              // Hill Stations
+              {
+                id: 7,
+                name: "Kodaikanal Misty Mountains",
+                location: "Kodaikanal, Tamil Nadu",
+                description: "Wander through misty pine forests, boat on the star-shaped lake, and enjoy cozy evenings by the fireplace.",
+                price: 19999,
+                oldPrice: 23999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "hillstation",
+                features: ["Lake views", "Plantation tours", "Sunset points"]
+              },
+              {
+                id: 8,
+                name: "Kalimpong Himalayan Hideaway",
+                location: "Kalimpong, West Bengal",
+                description: "Enjoy panoramic Himalayan views, visit ancient monasteries, and stroll through flower nurseries in this quaint hill town.",
+                price: 21999,
+                oldPrice: 25999,
+                discount: "15% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "hillstation",
+                features: ["Mountain views", "Monastery visits", "Heritage stays"]
+              },
+              {
+                id: 9,
+                name: "Chaukori Sunset Paradise",
+                location: "Chaukori, Uttarakhand",
+                description: "Wake up to Panchachuli peak views, experience local Kumaoni culture, and enjoy the most romantic sunsets in Uttarakhand.",
+                price: 23999,
+                oldPrice: 28999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "hillstation",
+                features: ["Mountain views", "Tea gardens", "Nature walks"]
+              },
+              {
+                id: 10,
+                name: "Coonoor Tea Estate Retreat",
+                location: "Coonoor, Tamil Nadu",
+                description: "Stay in a colonial bungalow surrounded by emerald tea plantations, ride the Nilgiri Mountain Railway, and enjoy high tea with valley views.",
+                price: 25999,
+                oldPrice: 30999,
+                discount: "16% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "hillstation",
+                features: ["Tea plantation", "Train journey", "Colonial charm"]
+              },
+              {
+                id: 11,
+                name: "Panikhar Alpine Experience",
+                location: "Panikhar, Ladakh",
+                description: "Discover the hidden alpine region of Ladakh with snow-capped peaks, lush meadows, and authentic Ladakhi culture.",
+                price: 29999,
+                oldPrice: 35999,
+                discount: "17% OFF",
+                duration: "6 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "hillstation",
+                features: ["Alpine meadows", "Local culture", "Trekking"]
+              },
+              {
+                id: 12,
+                name: "Pelling Kanchenjunga Views",
+                location: "Pelling, Sikkim",
+                description: "Wake up to breathtaking views of Kanchenjunga, explore ancient monasteries, and discover hidden waterfalls in this Sikkim gem.",
+                price: 27999,
+                oldPrice: 32999,
+                discount: "15% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "hillstation",
+                features: ["Mountain views", "Monastery visits", "Waterfall hikes"]
+              },
+
+              // Beaches
+              {
+                id: 13,
+                name: "Gokarna Secret Beaches",
+                location: "Gokarna, Karnataka",
+                description: "Discover secluded beaches, sunset cliff views, and bohemian vibes in this temple town by the Arabian Sea.",
+                price: 18999,
+                oldPrice: 22999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "beach",
+                features: ["Beach trekking", "Beachfront dining", "Sunset cruise"]
+              },
+              {
+                id: 14,
+                name: "Diu Portuguese Romance",
+                location: "Diu, Daman and Diu",
+                description: "Explore Portuguese architecture, cycle along palm-fringed beaches, and enjoy seafood dinners under the stars.",
+                price: 20999,
+                oldPrice: 24999,
+                discount: "16% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "beach",
+                features: ["Historic forts", "Water sports", "Heritage stay"]
+              },
+              {
+                id: 15,
+                name: "Marari Beach Tranquility",
+                location: "Marari Beach, Kerala",
+                description: "Unwind in a traditional Kerala-style cottage, enjoy Ayurvedic massages, and experience authentic backwater village life.",
+                price: 29999,
+                oldPrice: 35999,
+                discount: "17% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "beach",
+                features: ["Ayurvedic spa", "Cooking class", "Fishing village tour"]
+              },
+              {
+                id: 16,
+                name: "Bangaram Island Escape",
+                location: "Bangaram Island, Lakshadweep",
+                description: "Experience crystal-clear lagoons, vibrant coral reefs, and pristine white beaches on this exclusive island getaway.",
+                price: 45999,
+                oldPrice: 53999,
+                discount: "15% OFF",
+                duration: "6 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "beach",
+                features: ["Snorkeling", "Beach dinner", "Island hopping"]
+              },
+
+              // Urban Areas
+              {
+                id: 17,
+                name: "Mysore Royal Retreat",
+                location: "Mysore, Karnataka",
+                description: "Stay in heritage properties, witness the illuminated palace, and indulge in royal Mysore cuisine and silk shopping.",
+                price: 17999,
+                oldPrice: 21999,
+                discount: "18% OFF",
+                duration: "3 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "urban",
+                features: ["Palace tour", "Heritage stay", "Cultural show"]
+              },
+              {
+                id: 18,
+                name: "Hyderabad Nizami Splendor",
+                location: "Hyderabad, Telangana",
+                description: "Explore the city of pearls with its magnificent Charminar, Golconda Fort, and indulge in the royal Hyderabadi cuisine.",
+                price: 19999,
+                oldPrice: 23999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "urban",
+                features: ["Historical tour", "Pearl shopping", "Food trail"]
+              },
+              {
+                id: 19,
+                name: "Mumbai Coastal Luxury",
+                location: "Mumbai, Maharashtra",
+                description: "Experience luxury stays overlooking the Arabian Sea, sunset cruises at Marine Drive, and vibrant nightlife in India's city of dreams.",
+                price: 28999,
+                oldPrice: 34999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "urban",
+                features: ["Luxury stay", "Harbor cruise", "Foodie tour"]
+              },
+              {
+                id: 20,
+                name: "Delhi Heritage Walk",
+                location: "Delhi, NCR",
+                description: "Walk through centuries of history, from ancient monuments to colonial architecture, with luxury accommodations and fine dining experiences.",
+                price: 22999,
+                oldPrice: 26999,
+                discount: "15% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "urban",
+                features: ["Monument tour", "Food exploration", "Cultural immersion"]
+              },
+
+              // Historical
+              {
+                id: 21,
+                name: "Braj Spiritual Connect",
+                location: "Nidhivan, Barsana, Vrindavan, Mathura",
+                description: "Experience the spiritual richness of Braj region, visiting sacred temples and witnessing traditional rituals in the land of Krishna.",
+                price: 18999,
+                oldPrice: 22999,
+                discount: "17% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "historical",
+                features: ["Temple visits", "Cultural performances", "Spiritual walks"]
+              },
+              {
+                id: 22,
+                name: "Amber Fort Royal Experience",
+                location: "Amber (Amer), Rajasthan",
+                description: "Live like royalty in Rajasthan with a private tour of the magnificent Amber Fort, elephant rides, and authentic Rajasthani cuisine.",
+                price: 24999,
+                oldPrice: 29999,
+                discount: "17% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "historical",
+                features: ["Fort tour", "Royal dining", "Cultural shows"]
+              },
+              {
+                id: 23,
+                name: "Rameshwaram Spiritual Journey",
+                location: "Rameshwaram, Tamil Nadu",
+                description: "Embark on a spiritual odyssey to one of India's holiest sites, with temple visits, sacred bathing rituals, and pristine beaches.",
+                price: 21999,
+                oldPrice: 25999,
+                discount: "15% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "historical",
+                features: ["Temple visits", "Pamban Bridge", "Sacred bathing"]
+              },
+              {
+                id: 24,
+                name: "Hampi Ancient Ruins Exploration",
+                location: "Hampi, Karnataka",
+                description: "Discover the ancient ruins of the Vijayanagara Empire, with boulder-strewn landscapes and magnificent temple complexes.",
+                price: 23999,
+                oldPrice: 28999,
+                discount: "17% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "historical",
+                features: ["Ruins exploration", "Coracle ride", "Sunset views"]
+              },
+
+              {
+                id: 25,
+                name: "Nidhivan Mystical Experience",
+                location: "Vrindavan, Uttar Pradesh",
+                description: "Explore the mystical Nidhivan where legends say Lord Krishna performs his celestial dance each night, along with visits to ancient temples and spiritual sites.",
+                price: 20999,
+                oldPrice: 24999,
+                discount: "16% OFF",
+                duration: "4 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "historical",
+                features: ["Temple visits", "Spiritual experiences", "Evening aartis"]
+              },
+
+              {
+                id: 26,
+                name: "Mandu Royal Heritage Tour",
+                location: "Mandu, Madhya Pradesh",
+                description: "Discover the ancient city of Mandu with its Afghan architectural marvels, majestic palaces, and the romantic tale of Baz Bahadur and Roopmati set among picturesque ruins.",
+                price: 22999,
+                oldPrice: 27999,
+                discount: "18% OFF",
+                duration: "5 Days",
+                people: "2 People",
+                image: "/api/placeholder/400/300",
+                category: "historical",
+                features: ["Palace visits", "Historical tour", "Architectural marvels"]
+              }
+            ];
+
+            // Variables
+            const packageContainer = document.getElementById('packageContainer');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            let currentFilter = 'all';
+
+
+            // Display packages based on filter and visible count
+            function displayPackages() {
+              packageContainer.innerHTML = '';
+
+              // Get all package items
+              const packageItems = document.querySelectorAll('.package-item');
+
+              // Show all packages initially
+              packageItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+
+                // If filter is 'all' or matches the current category
+                if (currentFilter === 'all' || category === currentFilter) {
+                  item.style.display = 'block';
+                } else {
+                  item.style.display = 'none';
+                }
+              });
+            }
+
+            // Filter packages
+            filterBtns.forEach(btn => {
+              btn.addEventListener('click', function () {
+                // Reset active class
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update filter and display packages
+                currentFilter = this.getAttribute('data-filter');
+                displayPackages();
+
+                // Scroll to packages section
+                document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+              });
+            });
+
+            // Initial display
+            displayPackages();
+
+        </script>
+        <script>
+            // Package filtering
+            document.addEventListener('DOMContentLoaded', function () {
+              const filterBtns = document.querySelectorAll('.filter-btn');
+              const packageItems = document.querySelectorAll('.package-item');
+
+              filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                  // Remove active class from all buttons
+                  filterBtns.forEach(btn => btn.classList.remove('active'));
+                  // Add active class to clicked button
+                  this.classList.add('active');
+
+                  const filterValue = this.getAttribute('data-filter');
+
+                  packageItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
+                      item.style.display = 'block';
+                    } else {
+                      item.style.display = 'none';
+                    }
+                  });
+                });
+              });
+
+              // Smooth scrolling for anchor links
+              document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                  e.preventDefault();
+                  document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                  });
+                });
+              });
+
+              // Animation for elements when they come into view
+              const animateElements = document.querySelectorAll('.package-card, .col-md-4');
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade');
+                    observer.unobserve(entry.target);
+                  }
+                });
+              }, { threshold: 0.2 });
+
+              animateElements.forEach(el => {
+                observer.observe(el);
+              });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              // Mapping of keywords to their corresponding pages
+              const pageMapping = {
+                // Destination related keywords
+                "top": "Destination.html",
+                "best": "Destination.html",
+                "destinations": "Destination.html",
+                "places": "Destination.html",
+                "tourist": "Destination.html",
+                "famous": "Destination.html",
+
+                // Activities and Trekking
+                "trek": "ActivitiesTrekkingExperience.html",
+                "trekking": "ActivitiesTrekkingExperience.html",
+                "hiking": "ActivitiesTrekkingExperience.html",
+                "adventure": "ActivitiesTrekkingExperience.html",
+                "outdoor": "ActivitiesTrekkingExperience.html",
+                "activities": "ActivitiesTrekkingExperience.html",
+                "sports": "ActivitiesTrekkingExperience.html",
+
+                // Food and Cuisine
+                "food": "FoodsLocalCusine.html",
+                "cuisine": "FoodsLocalCusine.html",
+                "dishes": "FoodsLocalCusine.html",
+                "restaurant": "FoodsLocalCusine.html",
+                "eat": "FoodsLocalCusine.html",
+                "dining": "FoodsLocalCusine.html",
+                "culinary": "FoodsLocalCusine.html",
+
+                // Festivals and Events
+                "festival": "FestivalEvents.html",
+                "events": "FestivalEvents.html",
+                "celebration": "FestivalEvents.html",
+                "cultural": "FestivalEvents.html",
+                "ceremony": "FestivalEvents.html",
+                "fair": "FestivalEvents.html",
+
+                // Heritage and Historical Tourism
+                "heritage": "HeritageHistoricalTourim.html",
+                "historical": "HeritageHistoricalTourim.html",
+                "monument": "HeritageHistoricalTourim.html",
+                "fort": "HeritageHistoricalTourim.html",
+                "palace": "HeritageHistoricalTourim.html",
+                "history": "HeritageHistoricalTourim.html",
+                "ancient": "HeritageHistoricalTourim.html",
+                "architecture": "HeritageHistoricalTourim.html",
+
+                // Markets and Shopping
+                "market": "LocalMarketSouvenirs.html",
+                "shop": "LocalMarketSouvenirs.html",
+                "shopping": "LocalMarketSouvenirs.html",
+                "souvenir": "LocalMarketSouvenirs.html",
+                "handicraft": "LocalMarketSouvenirs.html",
+                "bazaar": "LocalMarketSouvenirs.html",
+                "buy": "LocalMarketSouvenirs.html",
+
+                // Photography
+                "photo": "Photospots.html",
+                "photography": "Photospots.html",
+                "spots": "Photospots.html",
+                "scenic": "Photospots.html",
+                "view": "Photospots.html",
+                "camera": "Photospots.html",
+                "instagram": "Photospots.html",
+
+                // Religious and Spiritual Tourism
+                "religious": "ReligiousSpiritualTourism.html",
+                "spiritual": "ReligiousSpiritualTourism.html",
+                "temple": "ReligiousSpiritualTourism.html",
+                "mosque": "ReligiousSpiritualTourism.html",
+                "church": "ReligiousSpiritualTourism.html",
+                "pilgrimage": "ReligiousSpiritualTourism.html",
+                "holy": "ReligiousSpiritualTourism.html",
+                "sacred": "ReligiousSpiritualTourism.html",
+
+                // Seasonal Travel
+                "season": "SeasonalTravel.html",
+                "seasonal": "SeasonalTravel.html",
+                "weather": "SeasonalTravel.html",
+                "monsoon": "SeasonalTravel.html",
+                "summer": "SeasonalTravel.html",
+                "winter": "SeasonalTravel.html",
+                "spring": "SeasonalTravel.html",
+                "autumn": "SeasonalTravel.html",
+                "fall": "SeasonalTravel.html",
+                "best time": "SeasonalTravel.html",
+                "when to visit": "SeasonalTravel.html",
+              };
+
+              // Sample destination data with page links
+              const destinations = [
+                { name: "Agra", description: "Home to the Taj Mahal", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+                { name: "Jaipur", description: "Pink City with royal palaces", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+                { name: "Goa", description: "Beautiful beaches and nightlife", type: "Beach", page: "Destination.html" },
+                { name: "Kerala", description: "God's own country with backwaters", type: "Nature", page: "Destination.html" },
+                { name: "Darjeeling", description: "Tea gardens and Himalayan views", type: "Hill Station", page: "Destination.html" },
+                { name: "Varanasi", description: "Spiritual city on the banks of Ganges", type: "Spiritual", page: "ReligiousSpiritualTourism.html" },
+                { name: "Udaipur", description: "City of lakes and palaces", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+                { name: "Rishikesh", description: "Yoga capital with adventure sports", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+                { name: "Andaman Islands", description: "Pristine beaches and coral reefs", type: "Beach", page: "Destination.html" },
+                { name: "Ladakh", description: "High altitude desert with stunning landscapes", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+                { name: "Munnar", description: "Tea plantations and misty hills", type: "Hill Station", page: "Destination.html" },
+                { name: "Hampi", description: "Ancient ruins and boulder landscapes", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+                { name: "Rajasthan", description: "Land of kings with desert and forts", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+                { name: "Manali", description: "Mountain paradise with adventure activities", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+                { name: "Amritsar", description: "Home to the Golden Temple", type: "Spiritual", page: "ReligiousSpiritualTourism.html" }
+              ];
+
+              const searchInput = document.getElementById('searchInput');
+              const searchButton = document.getElementById('searchButton');
+              const searchResults = document.getElementById('searchResults');
+
+              // Function to determine which page a search term should navigate to
+              function getDestinationPage(query) {
+                // First check if query matches a specific destination
+                const destinationMatch = destinations.find(dest =>
+                  dest.name.toLowerCase() === query.toLowerCase()
+                );
+
+                if (destinationMatch) {
+                  return destinationMatch.page;
+                }
+
+                // Then check for keyword matches in our mapping
+                const words = query.toLowerCase().split(' ');
+                for (const word of words) {
+                  if (word.length > 2 && pageMapping[word]) { // Ignore short words
+                    return pageMapping[word];
+                  }
+                }
+
+                // Check for multi-word phrases
+                for (const key in pageMapping) {
+                  if (query.toLowerCase().includes(key)) {
+                    return pageMapping[key];
+                  }
+                }
+
+                // Default to top destinations if no specific match
+                return "TopDestinations.html";
+              }
+
+              // Function to display search results
+              function displaySearchResults(results) {
+                searchResults.innerHTML = '';
+
+                if (results.length === 0) {
+                  searchResults.innerHTML = '<div class="no-results">No destinations found</div>';
+                  searchResults.classList.add('active');
+                  return;
+                }
+
+                results.forEach(result => {
+                  const resultItem = document.createElement('div');
+                  resultItem.className = 'search-result-item';
+                  resultItem.innerHTML = `
+                                                                              <div><span class="highlight">${result.name}</span> - ${result.type}</div>
+                                                                              <div>${result.description}</div>
+                                                                            `;
+
+                  // Add click event to navigate to destination page
+                  resultItem.addEventListener('click', function () {
+                    window.location.href = result.page;
+                    searchResults.classList.remove('active');
+                    searchInput.value = '';
+                  });
+
+                  searchResults.appendChild(resultItem);
+                });
+
+                searchResults.classList.add('active');
+              }
+
+              // Function to perform search
+              function performSearch() {
+                const query = searchInput.value.toLowerCase().trim();
+
+                if (query === '') {
+                  searchResults.classList.remove('active');
+                  return;
+                }
+
+                // Filter destinations based on search query
+                const results = destinations.filter(dest =>
+                  dest.name.toLowerCase().includes(query) ||
+                  dest.description.toLowerCase().includes(query) ||
+                  dest.type.toLowerCase().includes(query)
+                );
+
+                // If specific search matches are found, show them
+                if (results.length > 0) {
+                  displaySearchResults(results);
+                } else {
+                  // Otherwise, determine the best page for the query and navigate directly
+                  const bestPage = getDestinationPage(query);
+
+                  // Create a generic result to show before redirecting
+                  const genericResult = {
+                    name: `Search results for "${query}"`,
+                    description: "Click to view relevant information",
+                    type: "Search",
+                    page: bestPage
+                  };
+
+                  displaySearchResults([genericResult]);
+                }
+              }
+
+              // Event listeners for search
+              searchButton.addEventListener('click', function () {
+                const query = searchInput.value.trim();
+                if (query) {
+                  const page = getDestinationPage(query);
+                  window.location.href = page;
+                }
+              });
+
+              searchInput.addEventListener('keyup', function (event) {
+                if (event.key === 'Enter') {
+                  const query = searchInput.value.trim();
+                  if (query) {
+                    const page = getDestinationPage(query);
+                    window.location.href = page;
+                  }
+                } else if (event.key === 'Escape') {
+                  searchResults.classList.remove('active');
+                } else {
+                  // Auto-search as typing (real-time search)
+                  performSearch();
+                }
+              });
+
+              // Close search results when clicking outside
+              document.addEventListener('click', function (event) {
+                if (!searchInput.contains(event.target) && !searchResults.contains(event.target) && !searchButton.contains(event.target)) {
+                  searchResults.classList.remove('active');
+                }
+              });
+            });
+        </script>
+  </section>
+  <script>
+            function initiatePayment(packageName, amount) {
+              var options = {
+                "key": "rzp_test_1DP5mmOlF5G5ag",
+                "amount": amount * 100,
+                "currency": "INR",
+                "name": "Ikigai World",
+                "description": packageName,
+                "handler": function (response) {
+                  sendConfirmationEmail(packageName, amount, response.razorpay_payment_id);
+                  alert("Payment successful! Confirmation email sent.");
+                },
+                "prefill": {
+                  "name": "Customer Name",
+                  "email": "customer@example.com",
+                  "contact": "9876543210"
+                },
+                "theme": {
+                  "color": "#68B777"
+                }
+              };
+              var rzp = new Razorpay(options);
+              rzp.open();
+            }
+
+            function sendConfirmationEmail(packageName, amount, paymentId) {
+              emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                to_name: "Customer",
+                message: `Your booking for "${packageName}" has been confirmed. Total: ₹${amount}. Payment ID: ${paymentId}.`,
+                to_email: "customer@example.com"
+              });
+            }
+  </script>
+</body>
+
+</html>
