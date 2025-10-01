@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ikigai World - Indian Travel Experiences</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="ikigai-common.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@500;700&family=Montserrat:wght@300;400;500;600&display=swap');
+    
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', 'Segoe UI', sans-serif;
+    }
+    
+    html, body {
+      height: 100%;
+    }
+    
+    body {
+      background-color: #bedbd3;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Background video */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+    
+    .video-background video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+    
+    .video-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 48, 33, 0.7);
+      z-index: -1;
+    }
+    
+    /* Normal navigation bar */
+    .navbar {
+      background-color: rgba(13, 48, 33, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+      padding: 15px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Updated navigation layout for better space utilization */
+    .navbar .container {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px; /* Wider container for more space */
+      width: 100%;
+    }
+    
+    /* Logo and tagline */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      flex-shrink: 1;
+      margin-right: 10px; /* Reduced right margin */
+      min-width: 180px; /* Ensure minimum width for logo visibility */
+    }
+    
+    /* Logo styling with smaller size */
+    .logo-image {
+      width: 150px; /* Slightly smaller logo */
+      height: auto;
+      position: relative;
+      overflow: visible;
+      background: none;
+      box-shadow: none;
+      border: none;
+    }
+    
+    .logo-image img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease;
+      border: none;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+      object-fit: contain;
+    }
+    
+    .logo-image:hover img {
+      transform: scale(1.1);
+    }
+    
+    /* Tagline with updated font to match logo */
+    .tagline {
+      color: rgba(190, 219, 211, 0.9);
+      font-size: 16px; /* Slightly smaller font */
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: 0.8px;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+      white-space: normal; /* Allow breaking on very small screens */
+      display: none; /* Hide on smaller screens */
+    }
+    
+    /* Navigation links - updated with box styling */
+    .nav-links {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px; /* Reduced from 6px */
+      margin-right: 5px;
+    }
+    
+    .nav-links a {
+      color: rgba(190, 219, 211, 0.8);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 8px; /* Reduced horizontal padding */
+      transition: all 0.3s;
+      border-radius: 6px;
+      white-space: nowrap;
+      border: 1px solid rgba(104, 183, 119, 0.3); /* Add border to create box effect */
+      background-color: rgba(13, 48, 33, 0.4); /* Slightly darker background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px; /* Fixed height for uniform appearance */
+      font-size: 14px; /* Slightly smaller font */
+    }
+    
+    .nav-links a:hover, 
+    .nav-links a.active {
+      color: #bedbd3;
+      background-color: rgba(104, 183, 119, 0.3);
+      border-color: rgba(104, 183, 119, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Expanded search bar */
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px; /* Increased from 500px to 650px */
+      margin: 0 10px;
+      flex-grow: 1; /* Allow search to use available space */
+    }
+    
+    .search-container input {
+      width: 100%;
+      padding: 8px 16px;
+      padding-right: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(77, 98, 85, 0.5);
+      background: rgba(190, 219, 211, 0.1);
+      color: #bedbd3;
+      outline: none;
+      transition: all 0.3s;
+      height: 40px; /* Match height with nav links */
+    }
+    
+    .search-container input::placeholder {
+      color: rgba(190, 219, 211, 0.6);
+    }
+    
+    .search-container input:focus {
+      background: rgba(190, 219, 211, 0.2);
+      box-shadow: 0 0 10px rgba(104, 183, 119, 0.3);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(190, 219, 211, 0.7);
+      cursor: pointer;
+    }
+    
+    /* Search results dropdown */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(13, 48, 33, 0.95);
+      border-radius: 8px;
+      margin-top: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+    
+    .search-results.active {
+      display: block;
+    }
+    
+    .search-result-item {
+      padding: 10px 15px;
+      border-bottom: 1px solid rgba(77, 98, 85, 0.3);
+      color: #bedbd3;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .search-result-item:hover {
+      background: rgba(104, 183, 119, 0.2);
+    }
+    
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .highlight {
+      color: #68B777;
+      font-weight: bold;
+    }
+    
+    .no-results {
+      padding: 15px;
+      text-align: center;
+      color: #bedbd3;
+    }
+    
+    /* Action buttons - improved alignment and added sign up button */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px; /* Reduced gap */
+    }
+    
+    .nav-actions button {
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 8px 12px; /* Reduced padding */
+      border-radius: 6px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 40px; /* Match height with other elements */
+      font-size: 14px; /* Slightly smaller font */
+    }
+    
+    .nav-actions button:first-child {
+      background: transparent;
+      color: #bedbd3;
+      border: 1px solid rgba(190, 219, 211, 0.3);
+    }
+    
+    .nav-actions button:first-child:hover {
+      border-color: rgba(190, 219, 211, 0.5);
+      background: rgba(77, 98, 85, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .nav-actions button:last-child {
+      background: rgba(104, 183, 119, 0.3);
+      color: #bedbd3;
+      border: 1px solid rgba(104, 183, 119, 0.5);
+    }
+    
+    .nav-actions button:last-child:hover {
+      background: rgba(104, 183, 119, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    /* Show tagline on larger screens */
+    @media (min-width: 1200px) {
+      .tagline {
+        display: block;
+      }
+      
+      .logo-image {
+        width: 180px; /* Restore original logo size */
+      }
+      
+      .nav-links a, .nav-actions button {
+        font-size: 16px; /* Restore original font size */
+      }
+    }
+    
+    /* Medium screens adjustments */
+    @media (max-width: 1200px) and (min-width: 992px) {
+      .search-container {
+        max-width: 450px; /* Smaller search bar on medium screens */
+      }
+    }
+    
+    /* Trip category boxes */
+    .trip-categories {
+      margin-top: 80px;
+      padding: 20px;
+      flex: 1;
+    }
+    
+    .category-box {
+      background: rgba(13, 48, 33, 0.7);
+      border-radius: 12px;
+      padding: 30px;
+      height: 100%;
+      transition: all 0.3s;
+      border: 1px solid rgba(77, 98, 85, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .category-box:hover {
+      transform: translateY(-10px);
+      background: rgba(13, 48, 33, 0.8);
+      box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(104, 183, 119, 0.3);
+    }
+    
+    .category-icon {
+      font-size: 42px;
+      color: #68B777;
+      margin-bottom: 20px;
+    }
+    
+    .category-title {
+      color: #bedbd3;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      white-space: nowrap; /* Keep category titles on one line */
+    }
+    
+    .category-description {
+      color: rgba(190, 219, 211, 0.8);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .category-button {
+      background: linear-gradient(135deg, #0d3021, #4D6255, #68B777);
+      color: #bedbd3;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .category-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(13, 48, 33, 0.4);
+    }
+    /* Star animations instead of leaves */
+    .star {
+      position: fixed;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #ffffff;
+      animation: twinkle 5s infinite ease-in-out;
+      z-index: -1;
+    }
+    
+    .circle {
+      position: fixed;
+      background: #68B777;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 8s infinite ease-in-out alternate;
+      z-index: -1;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(10px, -10px); }
+      100% { transform: translate(-10px, 10px); }
+    }
+    
+    /* Footer */
+    footer {
+          background-color: rgba(13, 48, 33, 0.9);
+          color: #fff;
+          padding: 50px 0 20px;
+          border-top: 1px solid rgba(104, 183, 119, 0.3);
+          margin-top: 40px;
+        }
+        
+        .footer-links h5 {
+          color: #68B777;
+          margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+          color: #bedbd3;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+          color: #68B777;
+          padding-left: 5px;
+        }
+    
+    /* Sound control button */
+    .sound-control {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      background: rgba(13, 48, 33, 0.8);
+      color: #bedbd3;
+      border: 1px solid rgba(190, 219, 211, 0.3);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    
+    .sound-control:hover {
+      background: rgba(104, 183, 119, 0.4);
+      transform: scale(1.1);
+    }
+    
+    /* Mobile responsiveness */
+    .navbar-toggler {
+      border: 1px solid rgba(190, 219, 211, 0.3);
+      color: #bedbd3;
+    }
+    
+    /* Ensure the navbar collapses properly on mobile */
+    @media (max-width: 992px) {
+      .navbar-collapse {
+        flex-direction: column;
+        background: rgba(13, 48, 33, 0.95);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 10px;
+      }
+      
+      .logo-image {
+        width: 150px;
+      }
+      
+      .tagline {
+        font-size: 16px;
+        display: none;
+      }
+      
+      .trip-categories {
+        margin-top: 40px;
+      }
+      
+      .category-box {
+        margin-bottom: 20px;
+      }
+      
+      .navbar .container {
+        padding: 0 15px;
+      }
+      
+      .search-container {
+        max-width: 100%;
+        margin: 10px 0;
+        width: 100%;
+      }
+      
+      .nav-links {
+        width: 100%;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      
+      .nav-actions {
+        margin-top: 10px;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .logo-image {
+        width: 120px;
+      }
+      
+      .nav-links {
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+      
+      .nav-actions {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+      }
+      
+      /* Keep category titles visible on small screens */
+      .category-title {
+        font-size: 20px;
+      }
+    }
+
+    /* NEW STYLES FOR TRAVEL TOOLS SECTION */
+    .travel-tools {
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+    
+    .section-title {
+      color: #bedbd3;
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 32px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .tool-box {
+      background: rgba(13, 48, 33, 0.8);
+      border-radius: 12px;
+      padding: 25px 20px;
+      height: 100%;
+      transition: all 0.3s;
+      border: 1px solid rgba(104, 183, 119, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .tool-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.25),
+        0 0 15px rgba(104, 183, 119, 0.4);
+      border-color: rgba(104, 183, 119, 0.8);
+    }
+    
+    .tool-icon {
+      font-size: 36px;
+      color: #68B777;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+    }
+    
+    .tool-box:hover .tool-icon {
+      transform: scale(1.1);
+      color: #8be49c;
+    }
+    
+    .tool-title {
+      color: #bedbd3;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .tool-description {
+      color: rgba(190, 219, 211, 0.8);
+      font-size: 14px;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    
+    .tool-button {
+      background: linear-gradient(135deg, #0d3021, #4D6255, #68B777);
+      color: #bedbd3;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all 0.3s;
+      width: 80%;
+    }
+    
+    .tool-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(13, 48, 33, 0.6);
+      background: linear-gradient(135deg, #0d3021, #68B777, #8be49c);
+    }
+    
+    /* Quick access floating button for mobile */
+    .quick-tools {
+      position: fixed;
+      bottom: 120px;
+      right: 20px;
+      background: rgba(104, 183, 119, 0.8);
+      color: #0d3021;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: none;
+    }
+    
+    .quick-tools:hover {
+      transform: scale(1.1);
+      background: rgba(104, 183, 119, 1);
+    }
+    
+    .quick-tools-menu {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      background: rgba(13, 48, 33, 0.95);
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 150px;
+    }
+    
+    .quick-tools-menu.active {
+      display: flex;
+    }
+    
+    .quick-tool-item {
+      color: #bedbd3;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .quick-tool-item i {
+      color: #68B777;
+    }
+    
+    .quick-tool-item:hover {
+      background: rgba(104, 183, 119, 0.3);
+      transform: translateX(-3px);
+    }
+    
+    /* Responsive styles for travel tools */
+    @media (max-width: 768px) {
+      .travel-tools {
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .tool-box {
+        margin-bottom: 20px;
+      }
+      
+      .quick-tools {
+        display: flex;
+      }
+    }
+    .container.travel-tools .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Weather Assistant specific alignment */
+.weather-assistant-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.weather-assistant-container .tool-box {
+  max-width: 320px;
+  width: 100%;
+}
+
+
+/* Make responsive for mobile */
+@media (max-width: 992px) {
+  .weather-assistant-container .tool-box {
+    max-width: 100%;
+  }
+}
+ /* Only including relevant styles for the assistant boxes */
+ .assistants-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+    
+    .assistant-box {
+      background: rgba(13, 48, 33, 0.8);
+      border-radius: 12px;
+      padding: 25px 20px;
+      height: 100%;
+      transition: all 0.3s;
+      border: 1px solid rgba(104, 183, 119, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 320px;
+    }
+    
+    .assistant-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.25),
+        0 0 15px rgba(104, 183, 119, 0.4);
+      border-color: rgba(104, 183, 119, 0.8);
+    }
+    
+    .assistant-icon {
+      font-size: 36px;
+      color: #68B777;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+    }
+    
+    .assistant-box:hover .assistant-icon {
+      transform: scale(1.1);
+      color: #8be49c;
+    }
+    
+    .assistant-title {
+      color: #bedbd3;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .assistant-description {
+      color: rgba(190, 219, 211, 0.8);
+      font-size: 14px;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    
+    .assistant-button {
+      background: linear-gradient(135deg, #0d3021, #4D6255, #68B777);
+      color: #bedbd3;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all 0.3s;
+      width: 80%;
+    }
+    
+    .assistant-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(13, 48, 33, 0.6);
+      background: linear-gradient(135deg, #0d3021, #68B777, #8be49c);
+    }
+    
+    /* Make responsive for mobile */
+    @media (max-width: 768px) {
+      .assistants-row {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Video Background -->
+  <div class="video-background">
+    <video autoplay loop id="bgVideo">
+      <source src="videoplayback (3).mp4" type="video/mp4">
+      <!-- Fallback message if video doesn't load -->
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <!-- Sound control button -->
+  <div class="sound-control" id="soundToggle">
+    <i class="fas fa-volume-mute" id="soundIcon"></i>
+  </div>
+
+  <!-- Quick access floating button for mobile -->
+  <div class="quick-tools" id="quickTools">
+    <i class="fas fa-tools"></i>
+    <div class="quick-tools-menu" id="quickToolsMenu">
+      <a href="#" class="quick-tool-item"><i class="fas fa-calculator"></i> Expense Tracker</a>
+      <a href="#" class="quick-tool-item"><i class="fas fa-map-marked-alt"></i> Itinerary</a>
+      <a href="#" class="quick-tool-item"><i class="fas fa-comment-dots"></i> Travel Assistant</a>
+      <a href="#" class="quick-tool-item"><i class="fas fa-comment-dots"></i> Weather Assistant</a>
+    </div>
+  </div>
+
+  <!-- Star and circle decorations -->
+  <script>
+    function createStarsAndCircles() {
+      // Create stars
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size
+        const size = Math.random() * 3 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        
+        // Random animation delay
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        
+        document.body.appendChild(star);
+      }
+      
+      // Create circles
+      const colors = ['#68B777', '#8aac80', '#4D6255'];
+      for (let i = 0; i < 20; i++) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        
+        // Random size
+        const size = Math.random() * 30 + 10;
+        circle.style.width = `${size}px`;
+        circle.style.height = `${size}px`;
+        
+        // Random position
+        circle.style.top = `${Math.random() * 100}%`;
+        circle.style.left = `${Math.random() * 100}%`;
+        
+        // Random color
+        circle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random animation delay
+        circle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        document.body.appendChild(circle);
+      }
+    }
+    window.onload = createStarsAndCircles;
+  </script>
+  
+ <!-- Updated Navigation Bar with Search Functionality -->
+ <nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <!-- Logo and Tagline - Reduced width and margins -->
+    <div class="logo-container">
+      <div class="logo-image">
+        <a href = "home2.html"><img src="New.png" alt="Ikigai World Logo"></a>
+      </div>
+      <div class="tagline-container">
+        <p class="tagline">Unveil the Wonders of India with Ikigai World</p>
+      </div>
+    </div>
+    
+    <!-- Toggle Button for Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <i class="fas fa-bars text-light"></i>
+    </button>
+    
+    <!-- Nav Links and Actions -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="nav-links ms-auto">
+        <a href="Destination.html">Destinations</a>
+        <a href="TravelGuide.html">Travel Guides</a>
+        <a href="about-us-page.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      
+      <!-- Updated Search Bar with Wider Width -->
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search destinations...">
+        <span class="search-icon" id="searchButton"><i class="fas fa-search"></i></span>
+        <!-- Search Results Container -->
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <button>Log In</button>
+        <button>Sign Up</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <!-- Trip Category Boxes -->
+<div class="container trip-categories">
+  <h2 class="section-title">Trips to create Memories</h2>
+  <div class="row">
+    <!-- Solo Trip Box -->
+    <div class="col-md-3 mb-4">
+      <div class="category-box">
+        <div class="category-icon">
+          <i class="fas fa-user"></i>
+        </div>
+        <h3 class="category-title">Solo Trip</h3>
+        <p class="category-description">
+          Embark on a journey of self-discovery through India's diverse landscapes. 
+          Perfect for independent travelers seeking adventure and personal growth.
+        </p>
+        <a href="solo.html"><button class="category-button">Explore Solo</button></a>
+      </div>
+    </div>
+    
+    <!-- Family Trip Box -->
+    <div class="col-md-3 mb-4">
+      <div class="category-box">
+        <div class="category-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3 class="category-title">Family Trip</h3>
+        <p class="category-description">
+          Create lasting memories with your loved ones. Our family packages offer 
+          activities and experiences that cater to all ages.
+        </p>
+        <a href="Family Trip.html"><button class="category-button">Family Adventures</button></a>
+      </div>
+    </div>
+    
+    <!-- Group Trip Box -->
+    <div class="col-md-3 mb-4">
+      <div class="category-box">
+        <div class="category-icon">
+          <i class="fas fa-globe-asia"></i>
+        </div>
+        <h3 class="category-title">Group Trip</h3>
+        <p class="category-description">
+          Travel with friends or join new companions on curated group experiences. 
+          Share the joy of discovering India's wonders together.
+        </p>
+        <a href="group (2).html"><button class="category-button">Group Journeys</button></a>
+      </div>
+    </div>
+    
+    <!-- Couple Trip Box -->
+    <div class="col-md-3 mb-4">
+      <div class="category-box">
+        <div class="category-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="category-title">Couple Trip</h3>
+        <p class="category-description">
+          Experience romantic getaways in India's most enchanting locations.
+          Create unforgettable memories with your special someone.
+        </p>
+        <a href="CoupleTrip.html"><button class="category-button">Romantic Escapes</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- NEW SECTION: Travel Tools -->
+  <div class="container travel-tools">
+    <h2 class="section-title">Travel Planning Tools</h2>
+    <div class="row">
+      <!-- Expense Tracker Tool -->
+      <div class="col-md-4 mb-4">
+        <div class="tool-box">
+          <div class="tool-icon">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <h3 class="tool-title">Expense Tracker</h3>
+          <p class="tool-description">
+            Keep track of all your travel expenses in one place. Set budgets, 
+            categorize spending, and share expenses with travel companions.
+          </p>
+          <a href = "exp_tracker.html"><button class="tool-button">Track Expenses</button></a>
+        </div>
+      </div>
+
+      <!-- Itinerary System -->
+      <div class="col-md-4 mb-4">
+        <div class="tool-box">
+          <div class="tool-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h3 class="tool-title">Itinerary Planner</h3>
+          <p class="tool-description">
+            Plan your perfect trip day-by-day. Create customized itineraries, 
+            add attractions, and get estimated travel times between destinations.
+          </p>
+          <a href = "trip.html"><button class="tool-button">Plan Your Trip</button></a>
+        </div>
+      </div>
+      
+      <!-- Travel Assistant Tool -->
+      <div class="col-md-4 mb-4">
+        <div class="tool-box">
+          <div class="tool-icon">
+            <i class="fas fa-comment-dots"></i>
+          </div>
+          <h3 class="tool-title">Travel Assistant</h3>
+          <p class="tool-description">
+            Get personalized recommendations and instant answers to your travel 
+            questions with our AI-powered travel assistant.
+          </p>
+          <a href = "chatbot.html"><button class="tool-button">Ask Assistant</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="container">
+      <div class="assistants-row">
+        <!-- Hotel recommendation Box - MOVED TO LEFT SIDE -->
+        <div class="assistant-box">
+          <div class="assistant-icon">
+            <i class="fas fa-suitcase"></i>
+          </div>
+          <h3 class="assistant-title">Hotel Recommendation Assistant</h3>
+          <p class="assistant-description">
+            Get customized hotel lists based on your destination, duration, and activities planned.
+          </p>
+          <a href = "hotel.html"><button class="assistant-button">Hotel Recommending</button></a>
+        </div>
+        
+        <!-- Weather Assistant Box -->
+        <div class="assistant-box">
+          <div class="assistant-icon">
+            <i class="fas fa-cloud-sun"></i>
+          </div>
+          <h3 class="assistant-title">Weather Assistant</h3>
+          <p class="assistant-description">
+            Your weather daily companion - accurate forecasts and personalized recommendations for your travels.
+          </p>
+          <a href = "weather.html"><button class="assistant-button">Check Weather</button></a>
+        </div>
+        
+        <!-- Packaging Assistant Box -->
+        <div class="assistant-box">
+          <div class="assistant-icon">
+            <i class="fas fa-suitcase"></i>
+          </div>
+          <h3 class="assistant-title">Packing Assistant</h3>
+          <p class="assistant-description">
+            Get customized packing lists based on your destination, duration, and activities planned.
+          </p>
+          <a href = "pack.html"><button class="assistant-button">Plan Packing</button></a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  
+  
+  <!-- Footer -->
+<footer>
+  <div class="container">
+      <div class="row g-4">
+          <div class="col-lg-4 mb-4">
+              <h5 class="mb-3">About Explore India Together</h5>
+              <p>We are a premier group tour operator specializing in authentic Indian travel experiences. Our mission is to connect travelers with the rich culture, stunning landscapes, and hidden gems of India.</p>
+              <div class="mt-3">
+                  <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+              </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 mb-4">
+              <h5>Quick Links</h5>
+              <ul class="list-unstyled footer-links">
+                  <li class="mb-2"><a href="#home">Home</a></li>
+                  <li class="mb-2"><a href="#packages">Packages</a></li>
+                  <li class="mb-2"><a href="#about">Why Choose Us</a></li>
+                  <li class="mb-2"><a href="#contact">Contact</a></li>
+              </ul>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 mb-4">
+              <h5>Popular Tours</h5>
+              <ul class="list-unstyled footer-links">
+                  <li class="mb-2"><a href="#">Kashmir Tour</a></li>
+                  <li class="mb-2"><a href="#">Kerala Backwaters</a></li>
+                  <li class="mb-2"><a href="#">Ladakh Adventure</a></li>
+                  <li class="mb-2"><a href="#">Golden Triangle</a></li>
+                  <li class="mb-2"><a href="#">Himachal Exploration</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4 col-lg-4 mb-4">
+              <h5>Newsletter</h5>
+              <p>Subscribe to our newsletter for exclusive deals and travel tips.</p>
+              <div class="input-group mb-3">
+                  <input type="email" class="form-control" placeholder="Your email address">
+                  <button class="btn btn-primary" type="button">Subscribe</button>
+              </div>
+          </div>
+      </div>
+      <hr class="mt-4 mb-3" style="border-color: rgba(104, 183, 119, 0.3);">
+      <div class="text-center">
+          <p class="mb-0">&copy; 2025 Explore India Together. All rights reserved.</p>
+      </div>
+  </div>
+</footer>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Improved Audio Control Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('bgVideo');
+      const soundToggle = document.getElementById('soundToggle');
+      const soundIcon = document.getElementById('soundIcon');
+      let soundOn = false;
+      
+      // Set initial volume
+      video.volume = 0.5;
+      
+      // Function to toggle sound
+      function toggleSound() {
+        if (soundOn) {
+          video.muted = true;
+          soundOn = false;
+          soundIcon.className = 'fas fa-volume-mute';
+        } else {
+          video.muted = false;
+          soundOn = true;
+          soundIcon.className = 'fas fa-volume-up';
+        }
+      }
+      
+      // Add event listener for sound toggle button
+      soundToggle.addEventListener('click', toggleSound);
+      
+      // Check if video is available
+      video.addEventListener('error', function() {
+        console.log('Video failed to load');
+        video.style.display = 'none';
+        document.querySelector('.video-overlay').style.background = 'rgba(13, 48, 33, 0.9)';
+        soundToggle.style.display = 'none'; // Hide sound button if no video
+      });
+      
+      // Make sure video is loaded properly and can play
+      video.addEventListener('loadeddata', function() {
+        console.log('Video loaded successfully');
+      });
+      
+      // Fix for mobile browsers that may prevent autoplay
+      document.addEventListener('click', function() {
+        video.play().catch(function(error) {
+          console.log('Autoplay prevented by browser:', error);
+        });
+      }, { once: true });
+    });
+  </script>
+  
+  <!-- Search Functionality Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  // Mapping of keywords to their corresponding pages
+  const pageMapping = {
+    // Destination related keywords
+    "top": "Destination.html",
+    "best": "Destination.html",
+    "destinations": "Destination.html",
+    "places": "Destination.html",
+    "tourist": "Destination.html",
+    "famous": "Destination.html",
+    
+    // Activities and Trekking
+    "trek": "ActivitiesTrekkingExperience.html",
+    "trekking": "ActivitiesTrekkingExperience.html",
+    "hiking": "ActivitiesTrekkingExperience.html",
+    "adventure": "ActivitiesTrekkingExperience.html",
+    "outdoor": "ActivitiesTrekkingExperience.html",
+    "activities": "ActivitiesTrekkingExperience.html",
+    "sports": "ActivitiesTrekkingExperience.html",
+    
+    // Food and Cuisine
+    "food": "FoodsLocalCusine.html",
+    "cuisine": "FoodsLocalCusine.html",
+    "dishes": "FoodsLocalCusine.html",
+    "restaurant": "FoodsLocalCusine.html",
+    "eat": "FoodsLocalCusine.html",
+    "dining": "FoodsLocalCusine.html",
+    "culinary": "FoodsLocalCusine.html",
+    
+    // Festivals and Events
+    "festival": "FestivalEvents.html",
+    "events": "FestivalEvents.html",
+    "celebration": "FestivalEvents.html",
+    "cultural": "FestivalEvents.html",
+    "ceremony": "FestivalEvents.html",
+    "fair": "FestivalEvents.html",
+    
+    // Heritage and Historical Tourism
+    "heritage": "HeritageHistoricalTourim.html",
+    "historical": "HeritageHistoricalTourim.html",
+    "monument": "HeritageHistoricalTourim.html",
+    "fort": "HeritageHistoricalTourim.html",
+    "palace": "HeritageHistoricalTourim.html",
+    "history": "HeritageHistoricalTourim.html",
+    "ancient": "HeritageHistoricalTourim.html",
+    "architecture": "HeritageHistoricalTourim.html",
+    
+    // Markets and Shopping
+    "market": "LocalMarketSouvenirs.html",
+    "shop": "LocalMarketSouvenirs.html",
+    "shopping": "LocalMarketSouvenirs.html",
+    "souvenir": "LocalMarketSouvenirs.html",
+    "handicraft": "LocalMarketSouvenirs.html",
+    "bazaar": "LocalMarketSouvenirs.html",
+    "buy": "LocalMarketSouvenirs.html",
+    
+    // Photography
+    "photo": "Photospots.html",
+    "photography": "Photospots.html",
+    "spots": "Photospots.html",
+    "scenic": "Photospots.html",
+    "view": "Photospots.html",
+    "camera": "Photospots.html",
+    "instagram": "Photospots.html",
+    
+    // Religious and Spiritual Tourism
+    "religious": "ReligiousSpiritualTourism.html",
+    "spiritual": "ReligiousSpiritualTourism.html",
+    "temple": "ReligiousSpiritualTourism.html",
+    "mosque": "ReligiousSpiritualTourism.html",
+    "church": "ReligiousSpiritualTourism.html",
+    "pilgrimage": "ReligiousSpiritualTourism.html",
+    "holy": "ReligiousSpiritualTourism.html",
+    "sacred": "ReligiousSpiritualTourism.html",
+    
+    // Seasonal Travel
+    "season": "SeasonalTravel.html",
+    "seasonal": "SeasonalTravel.html",
+    "weather": "SeasonalTravel.html",
+    "monsoon": "SeasonalTravel.html",
+    "summer": "SeasonalTravel.html",
+    "winter": "SeasonalTravel.html",
+    "spring": "SeasonalTravel.html",
+    "autumn": "SeasonalTravel.html",
+    "fall": "SeasonalTravel.html",
+    "best time": "SeasonalTravel.html",
+    "when to visit": "SeasonalTravel.html",
+  };
+
+  // Sample destination data with page links
+  const destinations = [
+    { name: "Agra", description: "Home to the Taj Mahal", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Jaipur", description: "Pink City with royal palaces", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Goa", description: "Beautiful beaches and nightlife", type: "Beach", page: "Destination.html" },
+    { name: "Kerala", description: "God's own country with backwaters", type: "Nature", page: "Destination.html" },
+    { name: "Darjeeling", description: "Tea gardens and Himalayan views", type: "Hill Station", page: "Destination.html" },
+    { name: "Varanasi", description: "Spiritual city on the banks of Ganges", type: "Spiritual", page: "ReligiousSpiritualTourism.html" },
+    { name: "Udaipur", description: "City of lakes and palaces", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Rishikesh", description: "Yoga capital with adventure sports", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Andaman Islands", description: "Pristine beaches and coral reefs", type: "Beach", page: "Destination.html" },
+    { name: "Ladakh", description: "High altitude desert with stunning landscapes", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Munnar", description: "Tea plantations and misty hills", type: "Hill Station", page: "Destination.html" },
+    { name: "Hampi", description: "Ancient ruins and boulder landscapes", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Rajasthan", description: "Land of kings with desert and forts", type: "Heritage", page: "HeritageHistoricalTourim.html" },
+    { name: "Manali", description: "Mountain paradise with adventure activities", type: "Adventure", page: "ActivitiesTrekkingExperience.html" },
+    { name: "Amritsar", description: "Home to the Golden Temple", type: "Spiritual", page: "ReligiousSpiritualTourism.html" }
+  ];
+  
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+  const searchResults = document.getElementById('searchResults');
+  
+  // Function to determine which page a search term should navigate to
+  function getDestinationPage(query) {
+    // First check if query matches a specific destination
+    const destinationMatch = destinations.find(dest => 
+      dest.name.toLowerCase() === query.toLowerCase()
+    );
+    
+    if (destinationMatch) {
+      return destinationMatch.page;
+    }
+    
+    // Then check for keyword matches in our mapping
+    const words = query.toLowerCase().split(' ');
+    for (const word of words) {
+      if (word.length > 2 && pageMapping[word]) { // Ignore short words
+        return pageMapping[word];
+      }
+    }
+    
+    // Check for multi-word phrases
+    for (const key in pageMapping) {
+      if (query.toLowerCase().includes(key)) {
+        return pageMapping[key];
+      }
+    }
+    
+    // Default to top destinations if no specific match
+    return "TopDestinations.html";
+  }
+  
+  // Function to display search results
+  function displaySearchResults(results) {
+    searchResults.innerHTML = '';
+    
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="no-results">No destinations found</div>';
+      searchResults.classList.add('active');
+      return;
+    }
+    
+    results.forEach(result => {
+      const resultItem = document.createElement('div');
+      resultItem.className = 'search-result-item';
+      resultItem.innerHTML = `
+        <div><span class="highlight">${result.name}</span> - ${result.type}</div>
+        <div>${result.description}</div>
+      `;
+      
+      // Add click event to navigate to destination page
+      resultItem.addEventListener('click', function() {
+        window.location.href = result.page;
+        searchResults.classList.remove('active');
+        searchInput.value = '';
+      });
+      
+      searchResults.appendChild(resultItem);
+    });
+    
+    searchResults.classList.add('active');
+  }
+  
+  // Function to perform search
+  function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    
+    if (query === '') {
+      searchResults.classList.remove('active');
+      return;
+    }
+    
+    // Filter destinations based on search query
+    const results = destinations.filter(dest => 
+      dest.name.toLowerCase().includes(query) || 
+      dest.description.toLowerCase().includes(query) ||
+      dest.type.toLowerCase().includes(query)
+    );
+    
+    // If specific search matches are found, show them
+    if (results.length > 0) {
+      displaySearchResults(results);
+    } else {
+      // Otherwise, determine the best page for the query and navigate directly
+      const bestPage = getDestinationPage(query);
+      
+      // Create a generic result to show before redirecting
+      const genericResult = {
+        name: `Search results for "${query}"`,
+        description: "Click to view relevant information",
+        type: "Search",
+        page: bestPage
+      };
+      
+      displaySearchResults([genericResult]);
+    }
+  }
+  
+  // Event listeners for search
+  searchButton.addEventListener('click', function() {
+    const query = searchInput.value.trim();
+    if (query) {
+      const page = getDestinationPage(query);
+      window.location.href = page;
+    }
+  });
+  
+  searchInput.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      const query = searchInput.value.trim();
+      if (query) {
+        const page = getDestinationPage(query);
+        window.location.href = page;
+      }
+    } else if (event.key === 'Escape') {
+      searchResults.classList.remove('active');
+    } else {
+      // Auto-search as typing (real-time search)
+      performSearch();
+    }
+  });
+  
+  // Close search results when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target) && !searchButton.contains(event.target)) {
+      searchResults.classList.remove('active');
+    }
+  });
+});
+  </script>
+</body>
+</html>
